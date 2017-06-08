@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://192.168.119.184:8080/iQueue_WebService/webresources/login" uri="xml-resources/web-service-references/login/wsdl/192.168.119.184_8080/iqueue_webservice/webresources/login"/>
+</catalog>
