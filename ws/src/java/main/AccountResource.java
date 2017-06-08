@@ -39,12 +39,12 @@ public class AccountResource {
      * @throws java.sql.SQLException
      * @throws main.StatusException
      */
-    @Path("/login")
+    @Path("/register")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public LoginResponse login(final Login params) throws SQLException, StatusException {
-        return Controller.DB.login(params);
+    public StatusResponse createAccount(final CreateAccount params) throws SQLException, StatusException {
+        return Controller.DB.createAccount(params);
     }
 
     /**
@@ -54,12 +54,12 @@ public class AccountResource {
      * @throws java.sql.SQLException
      * @throws main.StatusException
      */
-    @Path("/logout")
+    @Path("/login")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public StatusResponse logout(final Session params) throws SQLException, StatusException {
-        return Controller.DB.logout(params);
+    public LoginResponse login(final Login params) throws SQLException, StatusException {
+        return Controller.DB.login(params);
     }
 
     /**
@@ -84,11 +84,11 @@ public class AccountResource {
      * @throws java.sql.SQLException
      * @throws main.StatusException
      */
-    @Path("/register")
+    @Path("/logout")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public StatusResponse createAccount(final CreateAccount params) throws SQLException, StatusException {
-        return Controller.DB.createAccount(params);
+    public StatusResponse logout(final Session params) throws SQLException, StatusException {
+        return Controller.DB.logout(params);
     }
 }
