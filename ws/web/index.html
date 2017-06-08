@@ -6,11 +6,34 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>JSON</title>
     </head>
     <body>
-        <div>TODO write content</div>
+        <button id="btn">Send</button>
+        <textarea id="response"></textarea>
+        
+        <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $("#btn").click(function() {
+                    $.ajax({
+                        url: "/ws/branch/all",
+                        cache: false,
+                        type: "POST",
+                        contentType: "application/json",
+                        dataType: "json",
+                        data: JSON.stringify({
+                            "session": "f69aee158fec417b441f8de0c86b25781aa0eaaa9065093c5e541a708cc84abe"
+                        }),
+                        success: function(data, status, xhr) {
+                            alert(JSON.stringify(data));
+                        },
+                        error: function(xhr, status, error) {
+                            alert(error + "\n" + status + "\n" + JSON.stringify(xhr));
+                        }
+                    });
+                });
+            });
+        </script>
     </body>
 </html>
