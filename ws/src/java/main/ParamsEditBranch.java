@@ -13,7 +13,13 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Jerico Manapsal
  */
 @XmlRootElement
-public class Login {
-    @XmlElement String username;
-    @XmlElement String password;
+public class ParamsEditBranch {
+    @XmlElement int id;
+    @XmlElement String brand;
+    @XmlElement String branch;
+    @XmlElement String category;
+    @XmlElement int manager;
+    @XmlElement float latitude;
+    @XmlElement float longitude;
+    @XmlElement String session;
 }

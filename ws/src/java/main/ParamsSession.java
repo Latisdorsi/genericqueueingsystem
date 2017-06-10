@@ -5,15 +5,14 @@
  */
 package main;
 
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlElement;
 
 /**
  *
  * @author Jerico Manapsal
  */
 @XmlRootElement
-public class BranchSession {
-    @XmlElement int branch;
+public class ParamsSession {
     @XmlElement String session;
 }

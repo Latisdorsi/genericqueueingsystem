@@ -31,6 +31,7 @@ public class ApplicationConfig extends Application {
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(main.AccountResource.class);
         resources.add(main.BranchResource.class);
+        resources.add(main.CounterResource.class);
         resources.add(main.QueueResource.class);
     }
     

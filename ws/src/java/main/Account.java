@@ -13,12 +13,11 @@ import javax.xml.bind.annotation.XmlType;
  * @author Jerico Manapsal
  */
 @XmlType
-public class Branch {
+public class Account {
     @XmlAttribute int id;
-    @XmlAttribute String brand;
-    @XmlAttribute String branch;
-    @XmlAttribute String category;
-    @XmlAttribute int manager;
-    @XmlAttribute float latitude;
-    @XmlAttribute float longitude;
+    @XmlAttribute String username;
+    @XmlAttribute String password;
+    @XmlAttribute String name;
+    @XmlAttribute String type;
+    @XmlAttribute String role;
 }
