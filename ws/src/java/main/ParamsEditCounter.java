@@ -18,6 +18,5 @@ public class ParamsEditCounter {
     @XmlElement int branch;
     @XmlElement String counter;
     @XmlElement String type;
-    @XmlElement int serving;
     @XmlElement String session;
 }

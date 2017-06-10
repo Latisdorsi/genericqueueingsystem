@@ -145,8 +145,7 @@ public final class Database {
         statement.setInt(1, params.branch);
         statement.setString(2, strip(params.counter, 30));
         statement.setString(3, strip(params.type, 7));
-        statement.setInt(4, params.serving);
-        statement.setString(5, strip(params.session, 64));
+        statement.setString(4, strip(params.session, 64));
         return getStatus(statement.executeQuery());
     }
     
@@ -156,8 +155,7 @@ public final class Database {
         statement.setInt(2, params.branch);
         statement.setString(3, strip(params.counter, 30));
         statement.setString(4, strip(params.type, 7));
-        statement.setInt(5, params.serving);
-        statement.setString(6, strip(params.session, 64));
+        statement.setString(5, strip(params.session, 64));
         return getStatus(statement.executeQuery());
     }
     
