@@ -41,7 +41,7 @@ public class CounterResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public StatusResponse createCounter(final ParamsCreateCounter params) throws SQLException {
+    public ResponseStatus createCounter(final ParamsCreateCounter params) throws SQLException {
         return Controller.DB.createCounter(params);
     }
 
@@ -55,7 +55,7 @@ public class CounterResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public StatusResponse editCounter(final ParamsEditCounter params) throws SQLException {
+    public ResponseStatus editCounter(final ParamsEditCounter params) throws SQLException {
         return Controller.DB.editCounter(params);
     }
 
@@ -69,7 +69,7 @@ public class CounterResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public StatusResponse deleteCounter(final ParamsIDSession params) throws SQLException {
+    public ResponseStatus deleteCounter(final ParamsIDSession params) throws SQLException {
         return Controller.DB.deleteCounter(params);
     }
 }

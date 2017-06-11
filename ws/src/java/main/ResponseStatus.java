@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlElement;
  * @author Jerico Manapsal
  */
 @XmlRootElement
-public class StatusResponse {
+public class ResponseStatus {
     @XmlElement int status;
     @XmlElement int status_id;
     @XmlElement String status_msg;
