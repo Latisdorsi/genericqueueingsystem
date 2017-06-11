@@ -5,20 +5,17 @@
  */
 package main;
 
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author Jerico Manapsal
  */
 @XmlRootElement
-public class CreateBranch {
-    @XmlElement String brand;
+public class ParamsAccountInfo {
+    @XmlElement String username;
+    @XmlElement String password;
     @XmlElement String name;
-    @XmlElement String category;
-    @XmlElement String type;
-    @XmlElement float latitude;
-    @XmlElement float longitude;
     @XmlElement String session;
 }

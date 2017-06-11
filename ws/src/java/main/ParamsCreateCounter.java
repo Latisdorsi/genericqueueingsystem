@@ -5,16 +5,17 @@
  */
 package main;
 
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author Jerico Manapsal
  */
 @XmlRootElement
-public class StatusResponse {
-    @XmlElement int status;
-    @XmlElement int status_id;
-    @XmlElement String status_msg;
+public class ParamsCreateCounter {
+    @XmlElement int branch;
+    @XmlElement String counter;
+    @XmlElement String type;
+    @XmlElement String session;
 }

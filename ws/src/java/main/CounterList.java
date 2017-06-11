@@ -5,6 +5,7 @@
  */
 package main;
 
+import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -13,6 +14,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Jerico Manapsal
  */
 @XmlRootElement
-public class Serving {
-    @XmlElement int serving;
+public class CounterList {
+    @XmlElement List<Counter> counters;
 }

@@ -5,20 +5,19 @@
  */
 package main;
 
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author Jerico Manapsal
  */
 @XmlRootElement
-public class EditBranch {
-    @XmlElement int id;
+public class ParamsCreateBranch {
     @XmlElement String brand;
-    @XmlElement String name;
+    @XmlElement String branch;
     @XmlElement String category;
-    @XmlElement String type;
+    @XmlElement int manager;
     @XmlElement float latitude;
     @XmlElement float longitude;
     @XmlElement String session;

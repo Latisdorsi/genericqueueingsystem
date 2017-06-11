@@ -19,20 +19,20 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Jerico Manapsal
  */
-@Path("branch")
-public class BranchResource {
+@Path("counter")
+public class CounterResource {
 
     @Context
     private UriInfo context;
 
     /**
-     * Creates a new instance of BranchResource
+     * Creates a new instance of CounterResource
      */
-    public BranchResource() {
+    public CounterResource() {
     }
 
     /**
-     * Retrieves representation of an instance of main.BranchResource
+     * Retrieves representation of an instance of main.CounterResource
      * @param params
      * @return an instance of java.lang.String
      * @throws java.sql.SQLException
@@ -41,12 +41,12 @@ public class BranchResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public ResponseStatus createBranch(final ParamsCreateBranch params) throws SQLException {
-        return Controller.DB.createBranch(params);
+    public ResponseStatus createCounter(final ParamsCreateCounter params) throws SQLException {
+        return Controller.DB.createCounter(params);
     }
 
     /**
-     * Retrieves representation of an instance of main.BranchResource
+     * Retrieves representation of an instance of main.CounterResource
      * @param params
      * @return an instance of java.lang.String
      * @throws java.sql.SQLException
@@ -55,12 +55,12 @@ public class BranchResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public ResponseStatus editBranch(final ParamsEditBranch params) throws SQLException {
-        return Controller.DB.editBranch(params);
+    public ResponseStatus editCounter(final ParamsEditCounter params) throws SQLException {
+        return Controller.DB.editCounter(params);
     }
 
     /**
-     * Retrieves representation of an instance of main.BranchResource
+     * Retrieves representation of an instance of main.CounterResource
      * @param params
      * @return an instance of java.lang.String
      * @throws java.sql.SQLException
@@ -69,7 +69,7 @@ public class BranchResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public ResponseStatus deleteBranch(final ParamsIDSession params) throws SQLException {
-        return Controller.DB.deleteBranch(params);
+    public ResponseStatus deleteCounter(final ParamsIDSession params) throws SQLException {
+        return Controller.DB.deleteCounter(params);
     }
 }

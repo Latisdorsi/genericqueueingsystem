@@ -5,18 +5,15 @@
  */
 package main;
 
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author Jerico Manapsal
  */
 @XmlRootElement
-public class GetAllQueuesResponse {
-    @XmlElement int id;
-    @XmlElement String username;
-    @XmlElement String name;
-    @XmlElement String entry;//datetime
-    @XmlElement int number;
+public class ParamsCounterSession {
+    @XmlElement int counter;
+    @XmlElement String session;
 }

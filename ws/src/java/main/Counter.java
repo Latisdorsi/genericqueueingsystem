@@ -13,12 +13,10 @@ import javax.xml.bind.annotation.XmlType;
  * @author Jerico Manapsal
  */
 @XmlType
-public class Branch {
+public class Counter {
     @XmlAttribute int id;
-    @XmlAttribute String brand;
-    @XmlAttribute String branch;
-    @XmlAttribute String category;
-    @XmlAttribute int manager;
-    @XmlAttribute float latitude;
-    @XmlAttribute float longitude;
+    @XmlAttribute int branch;
+    @XmlAttribute String counter;
+    @XmlAttribute String type;
+    @XmlAttribute int serving;
 }

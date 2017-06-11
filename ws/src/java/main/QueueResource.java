@@ -41,7 +41,7 @@ public class QueueResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public StatusResponse joinQueue(final BranchSession params) throws SQLException {
+    public ResponseStatus joinQueue(final ParamsCounterSession params) throws SQLException {
         return Controller.DB.joinQueue(params);
     }
 
@@ -55,49 +55,7 @@ public class QueueResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public StatusResponse leaveQueue(final BranchSession params) throws SQLException {
+    public ResponseStatus leaveQueue(final ParamsCounterSession params) throws SQLException {
         return Controller.DB.leaveQueue(params);
-    }
-
-    /**
-     * Retrieves representation of an instance of main.QueueResource
-     * @param params
-     * @return an instance of java.lang.String
-     * @throws java.sql.SQLException
-     */
-    @Path("/get")
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Serving getServingNumber(final BranchSession params) throws SQLException {
-        return Controller.DB.getServingNumber(params);
-    }
-
-    /**
-     * Retrieves representation of an instance of main.QueueResource
-     * @param params
-     * @return an instance of java.lang.String
-     * @throws java.sql.SQLException
-     */
-    @Path("/complete")
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public StatusResponse serveComplete(final BranchSession params) throws SQLException {
-        return Controller.DB.serveComplete(params);
-    }
-
-    /**
-     * Retrieves representation of an instance of main.QueueResource
-     * @param params
-     * @return an instance of java.lang.String
-     * @throws java.sql.SQLException
-     */
-    @Path("/next")
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public StatusResponse serveNext(final BranchSession params) throws SQLException {
-        return Controller.DB.serveNext(params);
     }
 }

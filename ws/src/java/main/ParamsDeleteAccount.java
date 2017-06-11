@@ -5,15 +5,16 @@
  */
 package main;
 
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 
 /**
  *
  * @author Jerico Manapsal
  */
 @XmlRootElement
-public class GetBranchesFromBrand {
-    @XmlElement String brand;
+public class ParamsDeleteAccount {
+    @XmlElement String username;
     @XmlElement String session;
 }

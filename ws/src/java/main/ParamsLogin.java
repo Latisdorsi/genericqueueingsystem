@@ -5,7 +5,6 @@
  */
 package main;
 
-import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -14,6 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Jerico Manapsal
  */
 @XmlRootElement
-public class BranchResponse {
-    @XmlElement List<Branch> branches;
+public class ParamsLogin {
+    @XmlElement String username;
+    @XmlElement String password;
 }

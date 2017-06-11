@@ -5,16 +5,15 @@
  */
 package main;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author Jerico Manapsal
  */
 @XmlRootElement
-public class CreateAccount {
-    @XmlElement String username;
-    @XmlElement String password;
-    @XmlElement String name;
+public class AccountList {
+    @XmlElement List<Account> accounts;
 }

@@ -5,22 +5,17 @@
  */
 package main;
 
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author Jerico Manapsal
  */
 @XmlRootElement
-public class LoginResponse {
-    @XmlElement String session;
+public class ParamsCreateCustomer {
     @XmlElement String username;
+    @XmlElement String password;
     @XmlElement String name;
-    
-    /*public LoginResponse(final String session, final String username, final String name) {
-        this.session = session;
-        this.username = username;
-        this.name = name;
-    }*/
+    @XmlElement String type;
 }

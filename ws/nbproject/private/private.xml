@@ -3,12 +3,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Repositories/Java/genericqueueingsystem/ws/src/java/main/ApplicationConfig.java</file>
-            <file>file:/D:/Repositories/Java/genericqueueingsystem/ws/web/index.html</file>
+<<<<<<< HEAD
+            <file>file:/D:/Repositories/Java/genericqueueingsystem/ws/src/java/main/CounterResource.java</file>
+            <file>file:/D:/Repositories/Java/genericqueueingsystem/ws/src/java/main/Database.java</file>
             <file>file:/D:/Repositories/Java/genericqueueingsystem/ws/src/java/main/AccountResource.java</file>
-            <file>file:/D:/Repositories/Java/genericqueueingsystem/ws/src/java/main/Controller.java</file>
             <file>file:/D:/Repositories/Java/genericqueueingsystem/ws/src/java/main/BranchResource.java</file>
             <file>file:/D:/Repositories/Java/genericqueueingsystem/ws/src/java/main/QueueResource.java</file>
+=======
+            <file>file:/home/uomi/Documents/genericqueueingsystem/ws/nbproject/build-impl.xml</file>
+            <file>file:/home/uomi/Documents/genericqueueingsystem/ws/src/java/main/Controller.java</file>
+            <file>file:/home/uomi/Documents/genericqueueingsystem/ws/src/java/main/Database.java</file>
+            <file>file:/home/uomi/Documents/genericqueueingsystem/ws/src/java/main/Account.java</file>
+            <file>file:/home/uomi/Documents/genericqueueingsystem/ws/src/java/main/AccountResource.java</file>
+            <file>file:/home/uomi/Documents/genericqueueingsystem/ws/web/WEB-INF/glassfish-web.xml</file>
+>>>>>>> origin/jerico
         </group>
     </open-files>
 </project-private>
