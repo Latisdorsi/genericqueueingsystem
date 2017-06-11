@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>iQueue</title>
+
+	<!-- Materialize Core CSS -->
+	<link rel="stylesheet" type="text/css" href="css/materialize.min.css" />
+
+</head>
+<body>
+	<ul id="slide-out" class="side-nav fixed">
+		<div style="padding: 50px">
+			<form class="col s12">
+				<div class="row">
+					<div class="input-field col s12">
+						<p class="flow-text">Welcome to iQueue!</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="row">
+						<div class="input-field col s12">
+							<input id="first_name" type="text" class="validate">
+							<label for="first_name">First Name</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s12">
+							<input id="last_name" type="text" class="validate">
+							<label for="last_name">Last Name</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s12">
+							<a class="waves-effect waves-light btn">Login</a>
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s12">
+							<p  >No account? <a href="#modal1" class="wut" data-toggle="modal"  >Register!</a></p>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</ul>
+
+		<!-- Modal -->
+		<div class="modal fade" id="modal1" role="dialog">
+			<div class="modal-dialog">
+
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-body">
+						<p style="font-family:verdana; text-align:center">Register to iQueue</p>
+						<form method = "post" action=""> <!--  REGISTERRRR MOOODAAAAL-->
+							<div style= "    display: block; text-align:center;   ">
+
+								<div class="form-group" >
+									<label for="usename">Username:</label><br>
+									<input type="text"  style= " width:200px ; display: inline-block; " class="form-control"  name="username">
+								</div>
+								<div class="form-group">
+									<label for="password">Password:</label><br>
+									<input type="password" style= " width:200px ; display: inline-block;" class="form-control" name="password">
+								</div>
+								<button type="submit" name="btn1" class="btn btn-default" ><b>Register</b></button>
+							</div>
+						</div>
+					</form>
+					<div class="modal-footer">
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+
+		<a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons"> </i></a>
+
+
+
+
+
+		<!-- jQuery -->
+		<script src="js/jquery-2.1.1.min.js"></script> 
+
+		<!-- Materialize -->
+		<script src="js/materialize.min.js"></script> 
+
+		<script src="js/script.js"></script>
+	</body>
+	</html>

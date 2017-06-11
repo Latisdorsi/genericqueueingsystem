@@ -103,7 +103,7 @@ public final class Database {
      */
     //start
     public final StatusResponse createBranch(final ParamsCreateBranch params) throws SQLException {
-        statement = connection.prepareCall("CALL CreateBrancch(?,?,?,?,?,?,?);");
+        statement = connection.prepareCall("CALL CreateBranch(?,?,?,?,?,?,?);");
         statement.setString(1, strip(params.brand, 30));
         statement.setString(2, strip(params.branch, 60));
         statement.setString(3, strip(params.category, 30));
@@ -141,7 +141,7 @@ public final class Database {
      */
     //start
     public final StatusResponse createCounter(final ParamsCreateCounter params) throws SQLException {
-        statement = connection.prepareCall("CALL CreateCounter(?,?,?,?,?);");
+        statement = connection.prepareCall("CALL CreateCounter(?,?,?,?);");
         statement.setInt(1, params.branch);
         statement.setString(2, strip(params.counter, 30));
         statement.setString(3, strip(params.type, 7));
@@ -150,7 +150,7 @@ public final class Database {
     }
     
     public final StatusResponse editCounter(final ParamsEditCounter params) throws SQLException {
-        statement = connection.prepareCall("CALL EditCounter(?,?,?,?,?,?);");
+        statement = connection.prepareCall("CALL EditCounter(?,?,?,?,?);");
         statement.setInt(1, params.id);
         statement.setInt(2, params.branch);
         statement.setString(3, strip(params.counter, 30));
