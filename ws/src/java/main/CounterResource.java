@@ -72,4 +72,32 @@ public class CounterResource {
     public ResponseStatus deleteCounter(final ParamsIDSession params) throws SQLException {
         return Controller.DB.deleteCounter(params);
     }
+
+    /**
+     * Retrieves representation of an instance of main.CounterResource
+     * @param params
+     * @return an instance of java.lang.String
+     * @throws java.sql.SQLException
+     */
+    @Path("/complete")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public ResponseStatus serveComplete(final ParamsCounterSession params) throws SQLException {
+        return Controller.DB.serveComplete(params);
+    }
+
+    /**
+     * Retrieves representation of an instance of main.CounterResource
+     * @param params
+     * @return an instance of java.lang.String
+     * @throws java.sql.SQLException
+     */
+    @Path("/next")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public ResponseStatus serveNext(final ParamsCounterSession params) throws SQLException {
+        return Controller.DB.serveNext(params);
+    }
 }
