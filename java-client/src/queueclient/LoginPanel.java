@@ -5,21 +5,26 @@
  */
 package queueclient;
 
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
+//import com.mashape.unirest.http.HttpResponse;
+//import com.mashape.unirest.http.JsonNode;
+//import com.mashape.unirest.http.Unirest;
+//import com.mashape.unirest.http.exceptions.UnirestException;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-//import org.apache.http.HttpResponse;
-//import org.apache.http.client.ClientProtocolException;
-//import org.apache.http.client.HttpClient;
-//import org.apache.http.client.methods.HttpPost;
-//import org.apache.http.entity.StringEntity;
-//import org.apache.http.impl.client.DefaultHttpClient;
-//import org.apache.http.impl.client.HttpClientBuilder;
-
+//import org.json.JSONException;
+//import org.json.JSONObject;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 
 /**
  *
@@ -32,11 +37,11 @@ public class LoginPanel extends javax.swing.JFrame {
      */
     public LoginPanel() {
         initComponents();
-        
-      
+
     }
 
     String session;
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -141,78 +146,114 @@ public class LoginPanel extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
-        try {
-            // TODO add your handling code here:
-            /*
+        // TODO add your handling code here:
+        if (!userTxt.getText().isEmpty() && !passTxt.getText().isEmpty()) {
             try {
-            
-            // create HTTP Client
-            HttpClient httpClient = HttpClientBuilder.create().build();
 
-            // Create new getRequest with below mentioned URL
-            HttpPost postRequest = new HttpPost("http://localhost:8080/ws/account/login");
-            StringEntity input = new StringEntity("{\"username\":\"" + userTxt.getText() + "\",\n\"password\":\"" + passTxt.getText() + "\"}");
-            // Add additional header to getRequest which accepts application/JSON data
-            input.setContentType("application/json");
-            postRequest.setEntity(input);
-            // Execute your request and catch response
-            HttpResponse response = httpClient.execute(postRequest);
-            
-            // Check for HTTP response code: 200 = success
-            if (response.getStatusLine().getStatusCode() != 200) {
-            throw new RuntimeException("Failed : HTTP error code : "
-            + response.getStatusLine().getStatusCode());
-            
-            }
+                // create HTTP Client
+                HttpClient httpClient = HttpClientBuilder.create().build();
 
-            // Get-Capture Complete application/JSON body response
-            BufferedReader br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));
-            String output;
-            session = br.readLine();
-            System.out.println("============Output:============");
-            System.out.println(session);
-            
-            //gets the session 
-            session = session.substring(12,76);
-            Session.setSesh(session);
+                // Create new getRequest with below mentioned URL
+                HttpPost postRequest = new HttpPost("http://localhost:8080/ws/account/login");
+                StringEntity input = new StringEntity("{\"username\":\"" + userTxt.getText() + "\",\n\"password\":\"" + passTxt.getText() + "\"}");
+                // Add additional header to getRequest which accepts application/JSON data
+                input.setContentType("application/json");
+                postRequest.setEntity(input);
+                // Execute your request and catch response
+                HttpResponse response = httpClient.execute(postRequest);
 
-            //Notification of Successful Login
-            JOptionPane.showMessageDialog(rootPane, "Successfully Logged In!");
+                // Check for HTTP response code: 200 = success
+                if (response.getStatusLine().getStatusCode() != 200) {
+                    throw new RuntimeException("Failed : HTTP error code : "
+                            + response.getStatusLine().getStatusCode());
 
-            //Move to the next Form
-            if (userTxt.getText().equals("admin") || userTxt.getText().equals("admin")) {
-            AdminPanel a = new AdminPanel();
-            a.setVisible(true);
-            this.dispose(); //closes the login page.
-            } else {
-            //logging in to the member's form
-            ManagerPanel m = new ManagerPanel();
-            m.setVisible(true);
-            this.dispose(); //closes the login page.
-            }
-            
+                }
+
+                // Get-Capture Complete application/JSON body response
+                BufferedReader br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));
+                String output = null;
+                output = br.readLine();
+                System.out.println("============Output:============");
+                System.out.println(output);
+
+                //gets the session
+                if (output.substring(12, 13).equalsIgnoreCase("\"")) {
+
+                    JOptionPane.showMessageDialog(rootPane, "Login Failed!");
+                    LoginPanel l = new LoginPanel();
+                    l.setVisible(true);
+                    this.dispose(); //closes the login page.
+                } else {
+                    session = output.substring(12, 76);
+                    Session.setSesh(session);
+                    JOptionPane.showMessageDialog(rootPane, "Login Successful!");
+                    //Move to the next Form
+                    if (userTxt.getText().equals("admin") || userTxt.getText().equals("admin")) {
+                        AdminPanel a = new AdminPanel();
+                        a.setVisible(true);
+                        this.dispose(); //closes the login page.
+                    } else {
+                        
+                        //logging in to the member's form
+                        ManagerPanel m = new ManagerPanel();
+                        m.setVisible(true);
+                        this.dispose(); //closes the login page.
+                    }
+
+                }
+
             } catch (ClientProtocolException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(rootPane, "Error! User not found.");
-            
-            } catch (IOException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(rootPane, "Error! User not found.");
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(rootPane, "Error! User not found.");
 
+            } catch (IOException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(rootPane, "Error! User not found.");
             }
-            */
-            
-            ////////////TRY UNIREST
-           HttpResponse<String> response = Unirest.post("http://localhost:8080/ws/account/login")
+
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Error! User not found.");
+        }
+        /*
+        ////////////TRY UNIREST
+        JSONObject obj = new JSONObject();
+        try {
+        obj.put("username", userTxt.getText());
+        obj.put("password", passTxt.getText());
+        } catch (JSONException ex) {
+        Logger.getLogger(LoginPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+        HttpResponse<JsonNode> response = Unirest.post("http://localhost:8080/ws/account/login")
+        .header("Content-Type", "application/json")
+        .body(obj)
+        .asJson();
+        } catch (UnirestException ex) {
+        Logger.getLogger(LoginPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         */
+
+ /*
+        ////////////TRY UNIREST
+        
+         JSONObject obj = new JSONObject();
+        try {
+            obj.put("username", userTxt.getText());
+            obj.put("password", passTxt.getText());
+        } catch (JSONException ex) {
+            Logger.getLogger(LoginPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        try {
+            HttpResponse<JsonNode> response = Unirest.post("http://localhost:8080/ws/account/login")
                     .header("Content-Type", "application/json")
-                    .field("username", userTxt.getText())
-                    .field("password", passTxt.getText())
-                    .asString();
-           
-            
+                    .body(obj)
+                    .asJson();
         } catch (UnirestException ex) {
             Logger.getLogger(LoginPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
+         */
     }//GEN-LAST:event_loginBtnActionPerformed
 
     /**
@@ -242,10 +283,6 @@ public class LoginPanel extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        
-        
-        
-        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

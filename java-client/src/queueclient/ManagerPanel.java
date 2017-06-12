@@ -26,18 +26,15 @@ public class ManagerPanel extends javax.swing.JFrame {
     /**
      * Creates new form MemberPanel
      */
-    
-    String username,password,session;
+    String username, password, session;
     //Constructor for receiving log in information of user
-    
+
     //Default Constructor
     public ManagerPanel() {
         initComponents();
-         
+
     }
 
-    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -76,9 +73,26 @@ public class ManagerPanel extends javax.swing.JFrame {
         userTxt = new javax.swing.JTextField();
         logoLabel7 = new javax.swing.JLabel();
         nameTxt = new javax.swing.JTextField();
-        createCustBtn = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         typeBox = new javax.swing.JComboBox<>();
+        logoLabel8 = new javax.swing.JLabel();
+        passTxt1 = new javax.swing.JPasswordField();
+        createCustBtn = new javax.swing.JButton();
+        deleteUserTxt = new javax.swing.JTextField();
+        logoLabel9 = new javax.swing.JLabel();
+        deleteCustBtn = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        logoLabel13 = new javax.swing.JLabel();
+        editPassTxt = new javax.swing.JPasswordField();
+        logoLabel14 = new javax.swing.JLabel();
+        editUserTxt = new javax.swing.JTextField();
+        logoLabel15 = new javax.swing.JLabel();
+        editNameTxt = new javax.swing.JTextField();
+        editCustBtn = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        logoLabel10 = new javax.swing.JLabel();
+        editPassTxt1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -197,6 +211,11 @@ public class ManagerPanel extends javax.swing.JFrame {
 
         addCtrBtn.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         addCtrBtn.setText("Add Counter");
+        addCtrBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addCtrBtnActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel1.setText("Counter Name:");
@@ -273,11 +292,11 @@ public class ManagerPanel extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 633, Short.MAX_VALUE)
+            .addGap(0, 696, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 489, Short.MAX_VALUE)
+            .addGap(0, 624, Short.MAX_VALUE)
         );
 
         UserPane.addTab("History", jPanel3);
@@ -296,18 +315,21 @@ public class ManagerPanel extends javax.swing.JFrame {
         logoLabel7.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         logoLabel7.setText("Name:");
 
-        createCustBtn.setText("Create Customer");
-        createCustBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                createCustBtnActionPerformed(evt);
-            }
-        });
-
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jLabel3.setText("Walk-In Customers");
 
         typeBox.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         typeBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Normal", "Special" }));
+
+        logoLabel8.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        logoLabel8.setText("Re-Enter:");
+
+        createCustBtn.setText("Create Account");
+        createCustBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createCustBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -316,48 +338,155 @@ public class ManagerPanel extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(logoLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(logoLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(userTxt)
-                            .addComponent(passTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(61, 61, 61)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(logoLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(logoLabel7))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(nameTxt)
-                            .addComponent(typeBox, 0, 150, Short.MAX_VALUE)))
-                    .addComponent(jLabel3))
-                .addContainerGap(78, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(passTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(userTxt)
+                                    .addComponent(passTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(61, 61, 61)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(logoLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(logoLabel7))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(nameTxt)
+                                    .addComponent(typeBox, 0, 150, Short.MAX_VALUE)))))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(logoLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(366, 366, 366)))
                 .addComponent(createCustBtn)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(logoLabel4)
-                    .addComponent(logoLabel7)
-                    .addComponent(userTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(logoLabel5)
-                    .addComponent(logoLabel6)
-                    .addComponent(passTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(typeBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addComponent(createCustBtn)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(logoLabel4)
+                            .addComponent(logoLabel7)
+                            .addComponent(userTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(logoLabel5)
+                            .addComponent(logoLabel6)
+                            .addComponent(passTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(typeBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(logoLabel8)
+                            .addComponent(passTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 12, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(createCustBtn)))
                 .addContainerGap())
+        );
+
+        logoLabel9.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        logoLabel9.setText("Username:");
+
+        deleteCustBtn.setText("Delete Customer");
+        deleteCustBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteCustBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
+        jLabel7.setText("Delete Walk-In Customer Account");
+
+        jPanel8.setBorder(new javax.swing.border.MatteBorder(null));
+
+        logoLabel13.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        logoLabel13.setText("Password:");
+
+        logoLabel14.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        logoLabel14.setText("Username:");
+
+        logoLabel15.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        logoLabel15.setText("Name:");
+
+        editCustBtn.setText("Save Changes");
+        editCustBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editCustBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
+        jLabel6.setText("Edit Customer Account");
+
+        logoLabel10.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        logoLabel10.setText("Re-Enter:");
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(logoLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(logoLabel14))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(editPassTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel8Layout.createSequentialGroup()
+                                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(editUserTxt)
+                                            .addComponent(editPassTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(61, 61, 61)
+                                        .addComponent(logoLabel15)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(editNameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 129, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                        .addComponent(logoLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(369, 369, 369)
+                        .addComponent(editCustBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(logoLabel14)
+                    .addComponent(logoLabel15)
+                    .addComponent(editUserTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editNameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(logoLabel13)
+                    .addComponent(editPassTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                        .addComponent(editCustBtn)
+                        .addContainerGap())
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(logoLabel10)
+                            .addComponent(editPassTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -366,7 +495,19 @@ public class ManagerPanel extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(logoLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(deleteUserTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(deleteCustBtn))
+                            .addComponent(jLabel7))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -374,7 +515,16 @@ public class ManagerPanel extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(335, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel7)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(logoLabel9)
+                    .addComponent(deleteUserTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(deleteCustBtn))
+                .addContainerGap(213, Short.MAX_VALUE))
         );
 
         UserPane.addTab("User", jPanel4);
@@ -400,7 +550,7 @@ public class ManagerPanel extends javax.swing.JFrame {
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
         // TODO add your handling code here:
-        System.out.println(Session.getSesh());
+
         try {
 
             // create HTTP Client
@@ -408,7 +558,7 @@ public class ManagerPanel extends javax.swing.JFrame {
 
             // Create new getRequest with below mentioned URL
             HttpPost postRequest = new HttpPost("http://localhost:8080/ws/account/logout");
-            StringEntity input = new StringEntity("{\"session\":\"" + Session.getSesh() +"\"}");
+            StringEntity input = new StringEntity("{\"session\":\"" + Session.getSesh() + "\"}");
             // Add additional header to getRequest which accepts application/JSON data
             input.setContentType("application/json");
             postRequest.setEntity(input);
@@ -421,7 +571,7 @@ public class ManagerPanel extends javax.swing.JFrame {
                         + response.getStatusLine().getStatusCode());
 
             }
-            
+
             // Get-Capture Complete application/JSON body response
             BufferedReader br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));
             String output;
@@ -430,17 +580,15 @@ public class ManagerPanel extends javax.swing.JFrame {
             // Simply iterate through JSON response and show on console.
             while ((output = br.readLine()) != null) {
                 System.out.println(output);
-                
+
             }
             //Notification of Successful Log Out
             JOptionPane.showMessageDialog(rootPane, "Successfully Logged Out!");
 
             //Move back to the next Form
-            
-                LoginPanel l = new LoginPanel();
-                l.setVisible(true);
-                this.dispose(); //closes the login page.
-            
+            LoginPanel l = new LoginPanel();
+            l.setVisible(true);
+            this.dispose(); //closes the login page.
 
         } catch (ClientProtocolException e) {
             e.printStackTrace();
@@ -457,11 +605,217 @@ public class ManagerPanel extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_deleteCtrBtnActionPerformed
 
+    private void deleteCustBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteCustBtnActionPerformed
+        // TODO add your handling code here:
+        if (!deleteUserTxt.getText().isEmpty()) {
+            try {
+
+                // create HTTP Client
+                HttpClient httpClient = HttpClientBuilder.create().build();
+
+                // Create new postRequest with below mentioned URL
+                HttpPost postRequest = new HttpPost("http://localhost:8080/ws/account/delete/customer");
+                StringEntity input = new StringEntity("{\"username\":\"" + deleteUserTxt.getText() + "\","
+                    + "\"session\":\"" + Session.getSesh() + "\"}");
+                // Add additional header to getRequest which accepts application/JSON data
+                input.setContentType("application/json");
+                postRequest.setEntity(input);
+                // Execute your request and catch response
+                HttpResponse response = httpClient.execute(postRequest);
+
+                // Check for HTTP response code: 200 = success
+                if (response.getStatusLine().getStatusCode() != 200) {
+                    throw new RuntimeException("Failed : HTTP error code : "
+                        + response.getStatusLine().getStatusCode());
+
+                }
+
+                // Get-Capture Complete application/JSON body response
+                BufferedReader br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));
+                String output;
+                System.out.println("============Output:============");
+
+                // Simply iterate through JSON response and show on console.
+                while ((output = br.readLine()) != null) {
+                    System.out.println(output);
+
+                    //Notification of Successful/Failed post
+                    if(output.substring(10,11).equalsIgnoreCase("1"))
+                    {
+                        if(output.substring(24, 28).equalsIgnoreCase("1001"))
+                       {
+                       JOptionPane.showMessageDialog(rootPane, "Insufficient Privileges");
+                       }
+                        else{JOptionPane.showMessageDialog(rootPane, output.substring(43, 92));}
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(rootPane, "Account Deleted!");
+                    }
+                }
+
+            } catch (ClientProtocolException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(rootPane, "Error! Check your input.");
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(rootPane, "Error! Check your input.");
+
+            }
+            //Clear Forms
+            deleteUserTxt.setText("");
+        }
+    }//GEN-LAST:event_deleteCustBtnActionPerformed
+
+    private void editCustBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editCustBtnActionPerformed
+        // TODO add your handling code here:
+        if (!editUserTxt.getText().isEmpty() && !editPassTxt.getText().isEmpty() && !editNameTxt.getText().isEmpty()
+            && editPassTxt.getText().equals(editPassTxt1.getText())) {
+            try {
+
+                // create HTTP Client
+                HttpClient httpClient = HttpClientBuilder.create().build();
+
+                // Create new postRequest with below mentioned URL
+                HttpPost postRequest = new HttpPost("http://localhost:8080/ws/account/edit/customer");
+                StringEntity input = new StringEntity("{\"username\":\"" + editUserTxt.getText() + "\","
+                    + "\"password\":\"" + editPassTxt.getText() + "\","
+                    + "\"name\":\"" + editNameTxt.getText() + "\","
+                    + "\"session\":\"" + Session.getSesh() + "\"}");
+                // Add additional header to getRequest which accepts application/JSON data
+                input.setContentType("application/json");
+                postRequest.setEntity(input);
+                // Execute your request and catch response
+                HttpResponse response = httpClient.execute(postRequest);
+
+                // Check for HTTP response code: 200 = success
+                if (response.getStatusLine().getStatusCode() != 200) {
+                    throw new RuntimeException("Failed : HTTP error code : "
+                        + response.getStatusLine().getStatusCode());
+
+                }
+
+                // Get-Capture Complete application/JSON body response
+                BufferedReader br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));
+                String output;
+                System.out.println("============Output:============");
+
+                // Simply iterate through JSON response and show on console.
+                while ((output = br.readLine()) != null) {
+                    System.out.println(output);
+
+                    //Notification of Successful/Failed post
+                    if(output.substring(10,11).equalsIgnoreCase("1"))
+                    {
+                        if(output.substring(24, 28).equalsIgnoreCase("1001"))
+                       {
+                       JOptionPane.showMessageDialog(rootPane, "Insufficient Privileges");
+                       }
+                        else{JOptionPane.showMessageDialog(rootPane, output.substring(43, 92));}
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(rootPane, "Account Modification Success!");
+                    }
+                }
+
+            } catch (ClientProtocolException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(rootPane, "Error! Check your input.");
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(rootPane, "Error! Check your input.");
+
+            }
+
+            //Clear Forms
+            editUserTxt.setText("");
+            editPassTxt.setText("");
+            editPassTxt1.setText("");
+            editNameTxt.setText("");
+        }
+        else{
+            JOptionPane.showMessageDialog(rootPane, "Error! Check your input.");
+        }
+    }//GEN-LAST:event_editCustBtnActionPerformed
+
     private void createCustBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createCustBtnActionPerformed
         // TODO add your handling code here:
-        
+        if (!userTxt.getText().isEmpty() && !passTxt.getText().isEmpty() && !nameTxt.getText().isEmpty()
+                && passTxt.getText().equals(passTxt1.getText())) {
+            try {
+
+                // create HTTP Client
+                HttpClient httpClient = HttpClientBuilder.create().build();
+
+                // Create new postRequest with below mentioned URL
+                HttpPost postRequest = new HttpPost("http://localhost:8080/ws/account/create/customer");
+                StringEntity input = new StringEntity("{\"username\":\"" + userTxt.getText() + "\","
+                        + "\"password\":\"" + passTxt.getText() + "\","
+                        + "\"name\":\"" + nameTxt.getText() + "\","
+                        + "\"type\":\"" + typeBox.getSelectedItem().toString().toUpperCase() + "\"}");
+                // Add additional header to getRequest which accepts application/JSON data
+                input.setContentType("application/json");
+                postRequest.setEntity(input);
+                // Execute your request and catch response
+                HttpResponse response = httpClient.execute(postRequest);
+
+                // Check for HTTP response code: 200 = success
+                if (response.getStatusLine().getStatusCode() != 200) {
+                    throw new RuntimeException("Failed : HTTP error code : "
+                            + response.getStatusLine().getStatusCode());
+
+                }
+
+                // Get-Capture Complete application/JSON body response
+                BufferedReader br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));
+                String output;
+                System.out.println("============Output:============");
+
+                // Simply iterate through JSON response and show on console.
+                while ((output = br.readLine()) != null) {
+                    System.out.println(output);
+                    
+                   //Notification of Successful/Failed post
+                   if(output.substring(10,11).equalsIgnoreCase("1"))
+                   {
+                       if(output.substring(24, 28).equalsIgnoreCase("1001"))
+                       {
+                       JOptionPane.showMessageDialog(rootPane, "Insufficient Privileges");
+                       }
+                       else{JOptionPane.showMessageDialog(rootPane, output.substring(43, 92));}
+                   }
+                   else{
+                   JOptionPane.showMessageDialog(rootPane, "Account Creation Success!");
+                   }
+               }
+                
+
+            } catch (ClientProtocolException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(rootPane, "Error! Check your input.");
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(rootPane, "Error! Check your input.");
+
+            }
+            //Clear Forms
+            userTxt.setText("");
+            passTxt.setText("");
+            passTxt1.setText("");
+            nameTxt.setText("");
+
+        }
+        else{
+            JOptionPane.showMessageDialog(rootPane, "Error! Check your input.");
+        }
         
     }//GEN-LAST:event_createCustBtnActionPerformed
+
+    private void addCtrBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCtrBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addCtrBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -497,11 +851,7 @@ public class ManagerPanel extends javax.swing.JFrame {
                 new ManagerPanel().setVisible(true);
             }
         });
-        
-        
-        
-        
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -513,26 +863,43 @@ public class ManagerPanel extends javax.swing.JFrame {
     private javax.swing.JButton createCustBtn;
     private javax.swing.ButtonGroup ctrTypeBtnGroup;
     private javax.swing.JButton deleteCtrBtn;
+    private javax.swing.JButton deleteCustBtn;
+    private javax.swing.JTextField deleteUserTxt;
+    private javax.swing.JButton editCustBtn;
+    private javax.swing.JTextField editNameTxt;
+    private javax.swing.JPasswordField editPassTxt;
+    private javax.swing.JPasswordField editPassTxt1;
+    private javax.swing.JTextField editUserTxt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel logoLabel;
+    private javax.swing.JLabel logoLabel10;
+    private javax.swing.JLabel logoLabel13;
+    private javax.swing.JLabel logoLabel14;
+    private javax.swing.JLabel logoLabel15;
     private javax.swing.JLabel logoLabel3;
     private javax.swing.JLabel logoLabel4;
     private javax.swing.JLabel logoLabel5;
     private javax.swing.JLabel logoLabel6;
     private javax.swing.JLabel logoLabel7;
+    private javax.swing.JLabel logoLabel8;
+    private javax.swing.JLabel logoLabel9;
     private javax.swing.JButton logoutBtn;
     private javax.swing.JTextField nameTxt;
     private javax.swing.JPasswordField passTxt;
+    private javax.swing.JPasswordField passTxt1;
     private javax.swing.JButton saveCtrBtn;
     private javax.swing.JComboBox<String> typeBox;
     private javax.swing.JTextField userTxt;
