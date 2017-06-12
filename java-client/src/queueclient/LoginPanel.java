@@ -5,22 +5,20 @@
  */
 package queueclient;
 
-import java.awt.event.KeyEvent;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
+//import org.apache.http.HttpResponse;
+//import org.apache.http.client.ClientProtocolException;
+//import org.apache.http.client.HttpClient;
+//import org.apache.http.client.methods.HttpPost;
+//import org.apache.http.entity.StringEntity;
+//import org.apache.http.impl.client.DefaultHttpClient;
+//import org.apache.http.impl.client.HttpClientBuilder;
 
 
 /**
@@ -143,10 +141,11 @@ public class LoginPanel extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
-        // TODO add your handling code here:
-     
         try {
-
+            // TODO add your handling code here:
+            /*
+            try {
+            
             // create HTTP Client
             HttpClient httpClient = HttpClientBuilder.create().build();
 
@@ -161,9 +160,9 @@ public class LoginPanel extends javax.swing.JFrame {
             
             // Check for HTTP response code: 200 = success
             if (response.getStatusLine().getStatusCode() != 200) {
-                throw new RuntimeException("Failed : HTTP error code : "
-                        + response.getStatusLine().getStatusCode());
-
+            throw new RuntimeException("Failed : HTTP error code : "
+            + response.getStatusLine().getStatusCode());
+            
             }
 
             // Get-Capture Complete application/JSON body response
@@ -175,33 +174,45 @@ public class LoginPanel extends javax.swing.JFrame {
             
             //gets the session 
             session = session.substring(12,76);
-            
+            Session.setSesh(session);
 
             //Notification of Successful Login
             JOptionPane.showMessageDialog(rootPane, "Successfully Logged In!");
 
             //Move to the next Form
             if (userTxt.getText().equals("admin") || userTxt.getText().equals("admin")) {
-                AdminPanel a = new AdminPanel();
-                a.setVisible(true);
-                this.dispose(); //closes the login page.
+            AdminPanel a = new AdminPanel();
+            a.setVisible(true);
+            this.dispose(); //closes the login page.
             } else {
-                //logging in to the member's form
-                ManagerPanel m = new ManagerPanel(userTxt.getText(),passTxt.getText(),session);
-                m.setVisible(true);
-                this.dispose(); //closes the login page.
+            //logging in to the member's form
+            ManagerPanel m = new ManagerPanel();
+            m.setVisible(true);
+            this.dispose(); //closes the login page.
             }
-
-        } catch (ClientProtocolException e) {
+            
+            } catch (ClientProtocolException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, "Error! User not found.");
+            
+            } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(rootPane, "Error! User not found.");
 
-        } catch (IOException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(rootPane, "Error! User not found.");
-
+            }
+            */
+            
+            ////////////TRY UNIREST
+           HttpResponse<String> response = Unirest.post("http://localhost:8080/ws/account/login")
+                    .header("Content-Type", "application/json")
+                    .field("username", userTxt.getText())
+                    .field("password", passTxt.getText())
+                    .asString();
+           
+            
+        } catch (UnirestException ex) {
+            Logger.getLogger(LoginPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }//GEN-LAST:event_loginBtnActionPerformed
 
     /**

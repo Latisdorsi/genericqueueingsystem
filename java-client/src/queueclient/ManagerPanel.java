@@ -29,12 +29,7 @@ public class ManagerPanel extends javax.swing.JFrame {
     
     String username,password,session;
     //Constructor for receiving log in information of user
-    public ManagerPanel(String user, String pass, String sesh) {
-        initComponents();
-        username = user;
-        password = pass;
-        session = sesh;
-    }
+    
     //Default Constructor
     public ManagerPanel() {
         initComponents();
@@ -302,6 +297,11 @@ public class ManagerPanel extends javax.swing.JFrame {
         logoLabel7.setText("Name:");
 
         createCustBtn.setText("Create Customer");
+        createCustBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createCustBtnActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jLabel3.setText("Walk-In Customers");
@@ -400,7 +400,7 @@ public class ManagerPanel extends javax.swing.JFrame {
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
         // TODO add your handling code here:
-        
+        System.out.println(Session.getSesh());
         try {
 
             // create HTTP Client
@@ -408,7 +408,7 @@ public class ManagerPanel extends javax.swing.JFrame {
 
             // Create new getRequest with below mentioned URL
             HttpPost postRequest = new HttpPost("http://localhost:8080/ws/account/logout");
-            StringEntity input = new StringEntity("{\"session\":\"" + session +"\", \"username\":\"" + username + "\",\n\"password\":\"" + password + "\"}");
+            StringEntity input = new StringEntity("{\"session\":\"" + Session.getSesh() +"\"}");
             // Add additional header to getRequest which accepts application/JSON data
             input.setContentType("application/json");
             postRequest.setEntity(input);
@@ -456,6 +456,12 @@ public class ManagerPanel extends javax.swing.JFrame {
     private void deleteCtrBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteCtrBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_deleteCtrBtnActionPerformed
+
+    private void createCustBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createCustBtnActionPerformed
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_createCustBtnActionPerformed
 
     /**
      * @param args the command line arguments
