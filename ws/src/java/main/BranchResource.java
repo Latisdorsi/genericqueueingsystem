@@ -72,4 +72,18 @@ public class BranchResource {
     public ResponseStatus deleteBranch(final ParamsIDSession params) throws SQLException {
         return Controller.DB.deleteBranch(params);
     }
+
+    /**
+     * Retrieves representation of an instance of main.BranchResource
+     * @param params
+     * @return an instance of java.lang.String
+     * @throws java.sql.SQLException
+     */
+    @Path("/nowserving")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public NowServingList getNowServing(final ParamsIDSession params) throws SQLException {
+        return Controller.DB.getNowServing(params);
+    }
 }

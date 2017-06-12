@@ -4,6 +4,7 @@
 package main;
 
 import java.sql.*;
+import java.util.ArrayList;
 import org.mindrot.jbcrypt.BCrypt;
 
 /**
@@ -174,18 +175,27 @@ public final class Database {
         return getStatus(statement.executeQuery());
     }
     
-    public final ResponseStatus serveComplete(final ParamsCounterSession params) throws SQLException {
-        statement = connection.prepareCall("CALL ServeComplete(?,?);");
-        statement.setInt(1, params.counter);
+    public final NowServingList getNowServing(final ParamsIDSession params) throws SQLException {
+        statement = connection.prepareCall("CALL GetNowServing(?,?);");
+        statement.setInt(1, params.id);
         statement.setString(2, strip(params.session, 64));
-        return getStatus(statement.executeQuery());
-    }
-    
-    public final ResponseStatus serveNext(final ParamsCounterSession params) throws SQLException {
-        statement = connection.prepareCall("CALL ServeNext(?,?);");
-        statement.setInt(1, params.counter);
-        statement.setString(2, strip(params.session, 64));
-        return getStatus(statement.executeQuery());
+        ResultSet result = statement.executeQuery();
+        NowServingList list = new NowServingList();
+        ArrayList<NowServing> al = new ArrayList<>();
+        while (result.next()) {
+            try {
+                result.findColumn("status");
+                System.out.println("ERROR STATUS RESPONSE");
+                break;
+            } catch (SQLException ex) {
+                NowServing ns = new NowServing();
+                ns.counter = result.getString(1);
+                ns.serving = result.getInt(2);
+                al.add(ns);
+            }
+        }
+        list.nowServingList = al;
+        return list;
     }
     //end
     
@@ -203,6 +213,20 @@ public final class Database {
     
     public final ResponseStatus leaveQueue(final ParamsCounterSession params) throws SQLException {
         statement = connection.prepareCall("CALL LeaveQueue(?,?);");
+        statement.setInt(1, params.counter);
+        statement.setString(2, strip(params.session, 64));
+        return getStatus(statement.executeQuery());
+    }
+    
+    public final ResponseStatus serveComplete(final ParamsCounterSession params) throws SQLException {
+        statement = connection.prepareCall("CALL ServeComplete(?,?);");
+        statement.setInt(1, params.counter);
+        statement.setString(2, strip(params.session, 64));
+        return getStatus(statement.executeQuery());
+    }
+    
+    public final ResponseStatus serveNext(final ParamsCounterSession params) throws SQLException {
+        statement = connection.prepareCall("CALL ServeNext(?,?);");
         statement.setInt(1, params.counter);
         statement.setString(2, strip(params.session, 64));
         return getStatus(statement.executeQuery());
