@@ -18,7 +18,11 @@ public class Controller {
     
     static {
         try {
+<<<<<<< HEAD
+            DB = new Database("jdbc:mysql://localhost:3306/iqueue", "root", "root");
+=======
             DB = new Database("jdbc:mysql://localhost:3306/iqueue", "root", "Elementsof678@@@");
+>>>>>>> origin/master
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }

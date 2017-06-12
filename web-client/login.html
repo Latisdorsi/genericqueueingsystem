@@ -1,102 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+    <head>
 
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
-	<meta name="description" content="">
-	<meta name="author" content="">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
 
-	<title>iQueue</title>
+        <title>iQueue</title>
 
-	<!-- Materialize Core CSS -->
-	<link rel="stylesheet" type="text/css" href="css/materialize.min.css" />
+        <!-- Materialize Core CSS -->
+        <link rel="stylesheet" type="text/css" href="css/materialize.min.css" />
 
-</head>
-<body>
-	<ul id="slide-out" class="side-nav fixed">
-		<div style="padding: 50px">
-			<form class="col s12">
-				<div class="row">
-					<div class="input-field col s12">
-						<p class="flow-text">Welcome to iQueue!</p>
-					</div>
-				</div>
-				<div class="row">
-					<div class="row">
-						<div class="input-field col s12">
-							<input id="first_name" type="text" class="validate">
-							<label for="first_name">First Name</label>
-						</div>
-					</div>
-					<div class="row">
-						<div class="input-field col s12">
-							<input id="last_name" type="text" class="validate">
-							<label for="last_name">Last Name</label>
-						</div>
-					</div>
-					<div class="row">
-						<div class="input-field col s12">
-							<a class="waves-effect waves-light btn">Login</a>
-						</div>
-					</div>
-					<div class="row">
-						<div class="input-field col s12">
-							<p  >No account? <a href="#modal1" class="wut" data-toggle="modal"  >Register!</a></p>
-						</div>
+    </head>
+    <body >
+        <div class="row">
 
-					</div>
+            <div class="col s7 teal lighten-2" style= "height:100vh;">
 
-				</div>
-			</div>
-		</ul>
+            </div>
+            <div class="col s4">
+                <div style="padding: 10px">
+                    <form class="col s12">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <p class="flow-text">Welcome to iQueue!</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input id="login-username" type="text" class="validate">
+                                    <label for="username">Username</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input id="login-password" type="password" class="validate">
+                                    <label for="password">Password</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12">
+                                    <a class="waves-effect waves-light btn" id="btn-login">Login</a>
 
-		<!-- Modal -->
-		<div class="modal fade" id="modal1" role="dialog">
-			<div class="modal-dialog">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12">
+                                    <p  >No account? <a href="#modal1" data-toggle="modal"  >Register!</a></p>
+                                </div>
 
-				<!-- Modal content-->
-				<div class="modal-content">
-					<div class="modal-body">
-						<p style="font-family:verdana; text-align:center">Register to iQueue</p>
-						<form method = "post" action=""> <!--  REGISTERRRR MOOODAAAAL-->
-							<div style= "    display: block; text-align:center;   ">
+                            </div>
 
-								<div class="form-group" >
-									<label for="usename">Username:</label><br>
-									<input type="text"  style= " width:200px ; display: inline-block; " class="form-control"  name="username">
-								</div>
-								<div class="form-group">
-									<label for="password">Password:</label><br>
-									<input type="password" style= " width:200px ; display: inline-block;" class="form-control" name="password">
-								</div>
-								<button type="submit" name="btn1" class="btn btn-default" ><b>Register</b></button>
-							</div>
-						</div>
-					</form>
-					<div class="modal-footer">
-					</div>
-				</div>
+                        </div>
+                </div>
 
-			</div>
+                <!-- Modal -->
+                <div class="modal fade" id="modal1" role="dialog">
+                    <div class="modal-dialog">
 
-		</div>
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-body col s12">
+                                <p >Register to iQueue</p>
+                                <div class="row">
+                                    <div class="input-field col s12">
+
+                                        <input type="text" id="register-username">
+                                        <label for="usename">Username:</label>
+                                    </div>
+                                    <div class="input-field col s12">
+
+                                        <input type="password" id="register-password">
+                                        <label for="password">Password:</label>
+                                    </div>
+                                    <div class="input-field col s12">
+
+                                        <input type="text" id="register-name">
+                                        <label for="password">Name:</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col s12" style="text-align:right;">
+                                        <a  id="btn-register" class="waves-effect waves-light btn">Register</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
 
 
-		<a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons"> </i></a>
+        </div>
 
 
 
 
+        <!-- jQuery -->
+        <script src="js/jquery-2.1.1.min.js"></script> 
+        <script src="js/jquery.cookie.js"></script> 
 
-		<!-- jQuery -->
-		<script src="js/jquery-2.1.1.min.js"></script> 
+        <!-- Materialize -->
+        <script src="js/materialize.min.js"></script> 
 
-		<!-- Materialize -->
-		<script src="js/materialize.min.js"></script> 
-
-		<script src="js/script.js"></script>
-	</body>
-	</html>
+        <script src="js/script.js"></script>
+    </body>
+</html>
