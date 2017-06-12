@@ -14,7 +14,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 
-
 /**
  * REST Web Service
  *
@@ -39,12 +38,12 @@ public class AccountResource {
      * @throws java.sql.SQLException
      * @throws main.StatusException
      */
-    @Path("/register")
+    @Path("/create/customer")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public StatusResponse createAccount(final CreateAccount params) throws SQLException, StatusException {
-        return Controller.DB.createAccount(params);
+    public ResponseStatus createCustomer(final ParamsCreateCustomer params) throws SQLException, StatusException {
+        return Controller.DB.createCustomer(params);
     }
 
     /**
@@ -53,28 +52,87 @@ public class AccountResource {
      * @return an instance of java.lang.String
      * @throws java.sql.SQLException
      * @throws main.StatusException
+     */
+    @Path("/create/manager")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public ResponseStatus createManager(final ParamsAccountInfo params) throws SQLException, StatusException {
+        return Controller.DB.createManager(params);
+    }
+
+    /**
+     * Retrieves representation of an instance of main.AccountResource
+     * @param params
+     * @return an instance of java.lang.String
+     * @throws java.sql.SQLException
+     * @throws main.StatusException
+     */
+    @Path("/edit/customer")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public ResponseStatus editCustomer(final ParamsAccountInfo params) throws SQLException, StatusException {
+        return Controller.DB.editCustomer(params);
+    }
+
+    /**
+     * Retrieves representation of an instance of main.AccountResource
+     * @param params
+     * @return an instance of java.lang.String
+     * @throws java.sql.SQLException
+     * @throws main.StatusException
+     */
+    @Path("/edit/manager")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public ResponseStatus editManager(final ParamsAccountInfo params) throws SQLException, StatusException {
+        return Controller.DB.editManager(params);
+    }
+
+    /**
+     * Retrieves representation of an instance of main.AccountResource
+     * @param params
+     * @return an instance of java.lang.String
+     * @throws java.sql.SQLException
+     * @throws main.StatusException
+     */
+    @Path("/delete/customer")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public ResponseStatus deleteCustomer(final ParamsDeleteAccount params) throws SQLException, StatusException {
+        return Controller.DB.deleteCustomer(params);
+    }
+
+    /**
+     * Retrieves representation of an instance of main.AccountResource
+     * @param params
+     * @return an instance of java.lang.String
+     * @throws java.sql.SQLException
+     * @throws main.StatusException
+     */
+    @Path("/delete/manager")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public ResponseStatus deleteManager(final ParamsDeleteAccount params) throws SQLException, StatusException {
+        return Controller.DB.deleteManager(params);
+    }
+
+    /**
+     * Retrieves representation of an instance of main.AccountResource
+     * @param params
+     * @return an instance of java.lang.String
+     * @throws java.sql.SQLException
      */
     @Path("/login")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public LoginResponse login(final Login params) throws SQLException, StatusException {
+    public ResponseLogin login(final ParamsLogin params) throws SQLException {
         return Controller.DB.login(params);
-    }
-
-    /**
-     * Retrieves representation of an instance of main.AccountResource
-     * @param params
-     * @return an instance of java.lang.String
-     * @throws java.sql.SQLException
-     * @throws main.StatusException
-     */
-    @Path("/edit")
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public StatusResponse editAccount(final EditAccount params) throws SQLException, StatusException {
-        return Controller.DB.editAccount(params);
     }
 
     /**
@@ -88,7 +146,7 @@ public class AccountResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public StatusResponse logout(final Session params) throws SQLException, StatusException {
+    public ResponseStatus logout(final ParamsSession params) throws SQLException, StatusException {
         return Controller.DB.logout(params);
     }
 }
