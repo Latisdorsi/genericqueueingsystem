@@ -41,7 +41,7 @@ public class QueueResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public StatusResponse joinQueue(final ParamsCounterSession params) throws SQLException {
+    public ResponseStatus joinQueue(final ParamsCounterSession params) throws SQLException {
         return Controller.DB.joinQueue(params);
     }
 
@@ -55,7 +55,7 @@ public class QueueResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public StatusResponse leaveQueue(final ParamsCounterSession params) throws SQLException {
+    public ResponseStatus leaveQueue(final ParamsCounterSession params) throws SQLException {
         return Controller.DB.leaveQueue(params);
     }
 }

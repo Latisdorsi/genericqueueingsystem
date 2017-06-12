@@ -14,7 +14,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 
-
 /**
  * REST Web Service
  *
@@ -43,7 +42,7 @@ public class AccountResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public StatusResponse createCustomer(final ParamsCreateCustomer params) throws SQLException, StatusException {
+    public ResponseStatus createCustomer(final ParamsCreateCustomer params) throws SQLException, StatusException {
         return Controller.DB.createCustomer(params);
     }
 
@@ -58,7 +57,7 @@ public class AccountResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public StatusResponse createManager(final ParamsAccountInfo params) throws SQLException, StatusException {
+    public ResponseStatus createManager(final ParamsAccountInfo params) throws SQLException, StatusException {
         return Controller.DB.createManager(params);
     }
 
@@ -73,7 +72,7 @@ public class AccountResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public StatusResponse editCustomer(final ParamsAccountInfo params) throws SQLException, StatusException {
+    public ResponseStatus editCustomer(final ParamsAccountInfo params) throws SQLException, StatusException {
         return Controller.DB.editCustomer(params);
     }
 
@@ -88,7 +87,7 @@ public class AccountResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public StatusResponse editManager(final ParamsAccountInfo params) throws SQLException, StatusException {
+    public ResponseStatus editManager(final ParamsAccountInfo params) throws SQLException, StatusException {
         return Controller.DB.editManager(params);
     }
 
@@ -103,7 +102,7 @@ public class AccountResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public StatusResponse deleteCustomer(final ParamsDeleteAccount params) throws SQLException, StatusException {
+    public ResponseStatus deleteCustomer(final ParamsDeleteAccount params) throws SQLException, StatusException {
         return Controller.DB.deleteCustomer(params);
     }
 
@@ -118,7 +117,7 @@ public class AccountResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public StatusResponse deleteManager(final ParamsDeleteAccount params) throws SQLException, StatusException {
+    public ResponseStatus deleteManager(final ParamsDeleteAccount params) throws SQLException, StatusException {
         return Controller.DB.deleteManager(params);
     }
 
@@ -127,13 +126,12 @@ public class AccountResource {
      * @param params
      * @return an instance of java.lang.String
      * @throws java.sql.SQLException
-     * @throws main.StatusException
      */
     @Path("/login")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public ResponseLogin login(final ParamsLogin params) throws SQLException, StatusException {
+    public ResponseLogin login(final ParamsLogin params) throws SQLException {
         return Controller.DB.login(params);
     }
 
@@ -148,7 +146,7 @@ public class AccountResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public StatusResponse logout(final ParamsSession params) throws SQLException, StatusException {
+    public ResponseStatus logout(final ParamsSession params) throws SQLException, StatusException {
         return Controller.DB.logout(params);
     }
 }

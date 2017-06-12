@@ -5,6 +5,7 @@ package main;
 
 import java.sql.*;
 import java.util.ArrayList;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
@@ -24,7 +25,7 @@ public final class Database {
      * AccountsResource Methods
      */
     //start
-    public final StatusResponse createCustomer(final ParamsCreateCustomer params) throws SQLException {
+    public final ResponseStatus createCustomer(final ParamsCreateCustomer params) throws SQLException {
         statement = connection.prepareCall("CALL CreateCustomer(?,?,?,?);");
         statement.setString(1, strip(params.username, 60));
         statement.setString(2, strip(params.password, 60));
@@ -33,7 +34,7 @@ public final class Database {
         return getStatus(statement.executeQuery());
     }
     
-    public final StatusResponse createManager(final ParamsAccountInfo params) throws SQLException {
+    public final ResponseStatus createManager(final ParamsAccountInfo params) throws SQLException {
         statement = connection.prepareCall("CALL CreateManager(?,?,?,?);");
         statement.setString(1, strip(params.username, 60));
         statement.setString(2, strip(params.password, 60));
@@ -42,7 +43,7 @@ public final class Database {
         return getStatus(statement.executeQuery());
     }
     
-    public final StatusResponse editCustomer(final ParamsAccountInfo params) throws SQLException {
+    public final ResponseStatus editCustomer(final ParamsAccountInfo params) throws SQLException {
         statement = connection.prepareCall("CALL EditCustomer(?,?,?,?);");
         statement.setString(1, strip(params.username, 60));
         statement.setString(2, strip(params.password, 60));
@@ -51,7 +52,7 @@ public final class Database {
         return getStatus(statement.executeQuery());
     }
     
-    public final StatusResponse editManager(final ParamsAccountInfo params) throws SQLException {
+    public final ResponseStatus editManager(final ParamsAccountInfo params) throws SQLException {
         statement = connection.prepareCall("CALL EditManager(?,?,?,?);");
         statement.setString(1, strip(params.username, 60));
         statement.setString(2, strip(params.password, 60));
@@ -60,37 +61,45 @@ public final class Database {
         return getStatus(statement.executeQuery());
     }
     
-    public final StatusResponse deleteCustomer(final ParamsDeleteAccount params) throws SQLException {
+    public final ResponseStatus deleteCustomer(final ParamsDeleteAccount params) throws SQLException {
         statement = connection.prepareCall("CALL DeleteCustomer(?,?);");
         statement.setString(1, strip(params.username, 60));
         statement.setString(2, strip(params.session, 64));
         return getStatus(statement.executeQuery());
     }
     
-    public final StatusResponse deleteManager(final ParamsDeleteAccount params) throws SQLException {
+    public final ResponseStatus deleteManager(final ParamsDeleteAccount params) throws SQLException {
         statement = connection.prepareCall("CALL DeleteManager(?,?);");
         statement.setString(1, strip(params.username, 60));
         statement.setString(2, strip(params.session, 64));
         return getStatus(statement.executeQuery());
     }
     
-    public final ResponseLogin login(final ParamsLogin params) throws SQLException, StatusException {
-        statement = connection.prepareCall("CALL Login(?,?);");
+    public final ResponseLogin login(final ParamsLogin params) throws SQLException {
+        statement = connection.prepareCall("CALL LoginCheckHash(?);");
         statement.setString(1, strip(params.username, 60));
-        statement.setString(2, strip(params.password, 60));
-        ResultSet result = statement.executeQuery();
-        if (!checkError(result)) {
-            ResponseLogin lr = new ResponseLogin();
-            lr.session = result.getString(1);
-            lr.username = result.getString(2);
-            lr.name = result.getString(3);
-            return lr;
-        } else {
-            throw new StatusException(result);
+        ResultSet result1 = statement.executeQuery();
+        ResponseLogin rl = new ResponseLogin();
+        if (!checkError(result1)) {
+            if (BCrypt.checkpw(strip(params.password, 60), result1.getString(1))) {
+                statement = connection.prepareCall("CALL Login(?,?);");
+                statement.setString(1, strip(params.username, 60));
+                statement.setString(2, BCrypt.hashpw(strip(params.password, 60), BCrypt.gensalt(12)));
+                ResultSet result2 = statement.executeQuery();
+                result2.next();
+                rl.session = result2.getString(1);
+                rl.username = result2.getString(2);
+                rl.name = result2.getString(3);
+                return rl;
+            }
         }
+        rl.session = "";
+        rl.username = "";
+        rl.name = "";
+        return rl;
     }
     
-    public final StatusResponse logout(final ParamsSession params) throws SQLException {
+    public final ResponseStatus logout(final ParamsSession params) throws SQLException {
         statement = connection.prepareCall("CALL Logout(?);");
         statement.setString(1, strip(params.session, 64));
         return getStatus(statement.executeQuery());
@@ -102,7 +111,7 @@ public final class Database {
      * BranchResource Methods
      */
     //start
-    public final StatusResponse createBranch(final ParamsCreateBranch params) throws SQLException {
+    public final ResponseStatus createBranch(final ParamsCreateBranch params) throws SQLException {
         statement = connection.prepareCall("CALL CreateBranch(?,?,?,?,?,?,?);");
         statement.setString(1, strip(params.brand, 30));
         statement.setString(2, strip(params.branch, 60));
@@ -114,7 +123,7 @@ public final class Database {
         return getStatus(statement.executeQuery());
     }
     
-    public final StatusResponse editBranch(final ParamsEditBranch params) throws SQLException {
+    public final ResponseStatus editBranch(final ParamsEditBranch params) throws SQLException {
         statement = connection.prepareCall("CALL EditBranch(?,?,?,?,?,?,?,?);");
         statement.setInt(1, params.id);
         statement.setString(2, strip(params.brand, 30));
@@ -127,7 +136,7 @@ public final class Database {
         return getStatus(statement.executeQuery());
     }
     
-    public final StatusResponse deleteBranch(final ParamsIDSession params) throws SQLException {
+    public final ResponseStatus deleteBranch(final ParamsIDSession params) throws SQLException {
         statement = connection.prepareCall("CALL DeleteBranch(?,?);");
         statement.setInt(1, params.id);
         statement.setString(2, strip(params.session, 64));
@@ -140,7 +149,7 @@ public final class Database {
      * CounterResource Methods
      */
     //start
-    public final StatusResponse createCounter(final ParamsCreateCounter params) throws SQLException {
+    public final ResponseStatus createCounter(final ParamsCreateCounter params) throws SQLException {
         statement = connection.prepareCall("CALL CreateCounter(?,?,?,?);");
         statement.setInt(1, params.branch);
         statement.setString(2, strip(params.counter, 30));
@@ -149,7 +158,7 @@ public final class Database {
         return getStatus(statement.executeQuery());
     }
     
-    public final StatusResponse editCounter(final ParamsEditCounter params) throws SQLException {
+    public final ResponseStatus editCounter(final ParamsEditCounter params) throws SQLException {
         statement = connection.prepareCall("CALL EditCounter(?,?,?,?,?);");
         statement.setInt(1, params.id);
         statement.setInt(2, params.branch);
@@ -159,11 +168,34 @@ public final class Database {
         return getStatus(statement.executeQuery());
     }
     
-    public final StatusResponse deleteCounter(final ParamsIDSession params) throws SQLException {
+    public final ResponseStatus deleteCounter(final ParamsIDSession params) throws SQLException {
         statement = connection.prepareCall("CALL DeleteCounter(?,?);");
         statement.setInt(1, params.id);
         statement.setString(2, strip(params.session, 64));
         return getStatus(statement.executeQuery());
+    }
+    
+    public final NowServingList getNowServing(final ParamsIDSession params) throws SQLException {
+        statement = connection.prepareCall("CALL GetNowServing(?,?);");
+        statement.setInt(1, params.id);
+        statement.setString(2, strip(params.session, 64));
+        ResultSet result = statement.executeQuery();
+        NowServingList list = new NowServingList();
+        ArrayList<NowServing> al = new ArrayList<>();
+        while (result.next()) {
+            try {
+                result.findColumn("status");
+                System.out.println("ERROR STATUS RESPONSE");
+                break;
+            } catch (SQLException ex) {
+                NowServing ns = new NowServing();
+                ns.counter = result.getString(1);
+                ns.serving = result.getInt(2);
+                al.add(ns);
+            }
+        }
+        list.nowServingList = al;
+        return list;
     }
     //end
     
@@ -172,15 +204,29 @@ public final class Database {
      * CounterResource Methods
      */
     //start
-    public final StatusResponse joinQueue(final ParamsCounterSession params) throws SQLException {
+    public final ResponseStatus joinQueue(final ParamsCounterSession params) throws SQLException {
         statement = connection.prepareCall("CALL JoinQueue(?,?);");
         statement.setInt(1, params.counter);
         statement.setString(2, strip(params.session, 64));
         return getStatus(statement.executeQuery());
     }
     
-    public final StatusResponse leaveQueue(final ParamsCounterSession params) throws SQLException {
+    public final ResponseStatus leaveQueue(final ParamsCounterSession params) throws SQLException {
         statement = connection.prepareCall("CALL LeaveQueue(?,?);");
+        statement.setInt(1, params.counter);
+        statement.setString(2, strip(params.session, 64));
+        return getStatus(statement.executeQuery());
+    }
+    
+    public final ResponseStatus serveComplete(final ParamsCounterSession params) throws SQLException {
+        statement = connection.prepareCall("CALL ServeComplete(?,?);");
+        statement.setInt(1, params.counter);
+        statement.setString(2, strip(params.session, 64));
+        return getStatus(statement.executeQuery());
+    }
+    
+    public final ResponseStatus serveNext(final ParamsCounterSession params) throws SQLException {
+        statement = connection.prepareCall("CALL ServeNext(?,?);");
         statement.setInt(1, params.counter);
         statement.setString(2, strip(params.session, 64));
         return getStatus(statement.executeQuery());
@@ -192,7 +238,7 @@ public final class Database {
      * Special Methods
      */
     //start
-    public final StatusResponse clearExpiredSessions(final int seconds) throws SQLException {
+    public final ResponseStatus clearExpiredSessions(final int seconds) throws SQLException {
         statement = connection.prepareCall("CALL ClearExpiredSessions(?);");
         statement.setInt(1, seconds);
         return getStatus(statement.executeQuery());
@@ -213,9 +259,9 @@ public final class Database {
         return (str.trim().length() > maxLength) ? str.trim().substring(0, maxLength) : str.trim();
     }
     
-    private StatusResponse getStatus(ResultSet result) throws SQLException {
+    private ResponseStatus getStatus(ResultSet result) throws SQLException {
         result.next();
-        StatusResponse sr = new StatusResponse();
+        ResponseStatus sr = new ResponseStatus();
         sr.status = result.getInt(1);
         sr.status_id = result.getInt(2);
         sr.status_msg = result.getString(3);

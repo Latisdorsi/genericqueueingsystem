@@ -41,7 +41,7 @@ public class CounterResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public StatusResponse createCounter(final ParamsCreateCounter params) throws SQLException {
+    public ResponseStatus createCounter(final ParamsCreateCounter params) throws SQLException {
         return Controller.DB.createCounter(params);
     }
 
@@ -55,7 +55,7 @@ public class CounterResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public StatusResponse editCounter(final ParamsEditCounter params) throws SQLException {
+    public ResponseStatus editCounter(final ParamsEditCounter params) throws SQLException {
         return Controller.DB.editCounter(params);
     }
 
@@ -69,7 +69,35 @@ public class CounterResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public StatusResponse deleteCounter(final ParamsIDSession params) throws SQLException {
+    public ResponseStatus deleteCounter(final ParamsIDSession params) throws SQLException {
         return Controller.DB.deleteCounter(params);
+    }
+
+    /**
+     * Retrieves representation of an instance of main.CounterResource
+     * @param params
+     * @return an instance of java.lang.String
+     * @throws java.sql.SQLException
+     */
+    @Path("/complete")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public ResponseStatus serveComplete(final ParamsCounterSession params) throws SQLException {
+        return Controller.DB.serveComplete(params);
+    }
+
+    /**
+     * Retrieves representation of an instance of main.CounterResource
+     * @param params
+     * @return an instance of java.lang.String
+     * @throws java.sql.SQLException
+     */
+    @Path("/next")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public ResponseStatus serveNext(final ParamsCounterSession params) throws SQLException {
+        return Controller.DB.serveNext(params);
     }
 }
