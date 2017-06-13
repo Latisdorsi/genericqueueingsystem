@@ -1,2 +1,4 @@
 /ws/build/
 /ws/dist/
+/java-client/dist/
+java-client/build/built-jar.properties
