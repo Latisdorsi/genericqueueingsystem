@@ -9,7 +9,6 @@ $(document).ready(function () {
         draggable: false// Choose whether you can drag to open on touch screens
     }
     );
-	
 
     function LoginAJAXRequest() {
         $.ajax({
@@ -42,7 +41,7 @@ $(document).ready(function () {
             contentType: "application/json"
         });
     };
-	
+
     $('.login-input').keypress(function (e) {
         if (e.which == 13) {
             LoginAJAXRequest();
@@ -71,7 +70,6 @@ $(document).ready(function () {
             dataType: "json",
             contentType: "application/json"
         });
-
     });
 	
     //Adds Table
@@ -118,5 +116,3 @@ $(document).ready(function () {
 	//btn-search
 	});
 });
-
-
