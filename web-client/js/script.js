@@ -19,9 +19,15 @@ $(document).ready(function () {
             data: JSON.stringify({"username": $('#login-username').val(), "password": $('#login-password').val()}),
             crossDomain: true,
             success: function (data) {
-                $.cookie("session", data.session);
-                alert('Session cookie is: ' + $.cookie("session") + ' [For debugging purposes]');
-                window.location.replace("/customer.html");
+                if(data.session != ""){
+                    $.cookie("session", data.session);
+                    window.location.replace("/customer.html");
+                }
+                else{
+                    window.location.replace("/login.html");
+                }
+                
+                
             },
 
             failure: function (errMsg) {

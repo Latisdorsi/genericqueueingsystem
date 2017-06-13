@@ -185,7 +185,6 @@ public final class Database {
         while (result.next()) {
             try {
                 result.findColumn("status");
-                System.out.println("ERROR STATUS RESPONSE");
                 break;
             } catch (SQLException ex) {
                 NowServing ns = new NowServing();
