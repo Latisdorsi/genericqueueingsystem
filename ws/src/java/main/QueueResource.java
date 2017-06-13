@@ -58,4 +58,18 @@ public class QueueResource {
     public ResponseStatus leaveQueue(final ParamsCounterSession params) throws SQLException {
         return Controller.DB.leaveQueue(params);
     }
+
+    /**
+     * Retrieves representation of an instance of main.QueueResource
+     * @param params
+     * @return an instance of java.lang.String
+     * @throws java.sql.SQLException
+     */
+    @Path("/currentqueue")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public ResponseCurrentQueue getCurrentQueue(final ParamsSession params) throws SQLException {
+        return Controller.DB.getCurrentQueue(params);
+    }
 }

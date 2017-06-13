@@ -28,7 +28,7 @@ public final class Database {
     public final ResponseStatus createCustomer(final ParamsCreateCustomer params) throws SQLException {
         statement = connection.prepareCall("CALL CreateCustomer(?,?,?,?);");
         statement.setString(1, strip(params.username, 60));
-        statement.setString(2, strip(params.password, 60));
+        statement.setString(2, BCrypt.hashpw(strip(params.password, 60), BCrypt.gensalt(12)));
         statement.setString(3, strip(params.name, 128));
         statement.setString(4, strip(params.type, 7));
         return getStatus(statement.executeQuery());
@@ -37,7 +37,7 @@ public final class Database {
     public final ResponseStatus createManager(final ParamsAccountInfo params) throws SQLException {
         statement = connection.prepareCall("CALL CreateManager(?,?,?,?);");
         statement.setString(1, strip(params.username, 60));
-        statement.setString(2, strip(params.password, 60));
+        statement.setString(2, BCrypt.hashpw(strip(params.password, 60), BCrypt.gensalt(12)));
         statement.setString(3, strip(params.name, 128));
         statement.setString(4, strip(params.session, 64));
         return getStatus(statement.executeQuery());
@@ -46,7 +46,7 @@ public final class Database {
     public final ResponseStatus editCustomer(final ParamsAccountInfo params) throws SQLException {
         statement = connection.prepareCall("CALL EditCustomer(?,?,?,?);");
         statement.setString(1, strip(params.username, 60));
-        statement.setString(2, strip(params.password, 60));
+        statement.setString(2, BCrypt.hashpw(strip(params.password, 60), BCrypt.gensalt(12)));
         statement.setString(3, strip(params.name, 128));
         statement.setString(4, strip(params.session, 64));
         return getStatus(statement.executeQuery());
@@ -55,7 +55,7 @@ public final class Database {
     public final ResponseStatus editManager(final ParamsAccountInfo params) throws SQLException {
         statement = connection.prepareCall("CALL EditManager(?,?,?,?);");
         statement.setString(1, strip(params.username, 60));
-        statement.setString(2, strip(params.password, 60));
+        statement.setString(2, BCrypt.hashpw(strip(params.password, 60), BCrypt.gensalt(12)));
         statement.setString(3, strip(params.name, 128));
         statement.setString(4, strip(params.session, 64));
         return getStatus(statement.executeQuery());
@@ -142,6 +142,36 @@ public final class Database {
         statement.setString(2, strip(params.session, 64));
         return getStatus(statement.executeQuery());
     }
+    
+    public final ResponseID getBranch(final ParamsSession params) throws SQLException {
+        statement = connection.prepareCall("CALL GetBranch(?);");
+        statement.setString(1, strip(params.session, 64));
+        ResultSet result = statement.executeQuery();
+        result.next();
+        ResponseID rid = new ResponseID();
+        rid.id = result.getInt(1);
+        return rid;
+    }
+    
+    public final ResponseSearchBrandList searchBrand(final ParamsBrandSession params) throws SQLException {
+        statement = connection.prepareCall("CALL SearchBrand(?,?);");
+        statement.setString(1, strip(params.brand, 30));
+        statement.setString(2, strip(params.session, 64));
+        ResultSet result = statement.executeQuery();
+        ResponseSearchBrandList rsbl = new ResponseSearchBrandList();
+        ArrayList<ResponseSearchBrand> list = new ArrayList<>();
+        while (result.next()) {
+            ResponseSearchBrand rsb = new ResponseSearchBrand();
+            rsb.id = result.getInt(1);
+            rsb.counter = result.getString(2);
+            rsb.brand = result.getString(3);
+            rsb.branch = result.getString(4);
+            rsb.category = result.getString(5);
+            list.add(rsb);
+        }
+        rsbl.list = list;
+        return rsbl;
+    }
     //end
     
     
@@ -195,6 +225,20 @@ public final class Database {
         }
         list.nowServingList = al;
         return list;
+    }
+    
+    public final ResponseCurrentQueue getCurrentQueue(final ParamsSession params) throws SQLException {
+        statement = connection.prepareCall("CALL GetCurrentQueue(?);");
+        statement.setString(1, strip(params.session, 64));
+        ResultSet result = statement.executeQuery();
+        ResponseCurrentQueue rcq = new ResponseCurrentQueue();
+        if (result.next()) {
+            rcq.branch = result.getString(1);
+            rcq.number = result.getInt(2);
+            rcq.serving = result.getInt(3);
+            rcq.linesahead = result.getInt(4);
+        }
+        return rcq;
     }
     //end
     
