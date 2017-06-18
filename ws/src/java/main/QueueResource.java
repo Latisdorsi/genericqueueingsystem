@@ -51,6 +51,34 @@ public class QueueResource {
      * @return an instance of java.lang.String
      * @throws java.sql.SQLException
      */
+    @Path("/join/branch")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public ResponseStatus joinQueueByBrand(final ParamsFindBranches params) throws SQLException {
+        return Controller.DB.joinQueueByBrand(params);
+    }
+
+    /**
+     * Retrieves representation of an instance of main.QueueResource
+     * @param params
+     * @return an instance of java.lang.String
+     * @throws java.sql.SQLException
+     */
+    @Path("/join/category")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public ResponseStatus joinQueueByCategory(final ParamsFindBranches params) throws SQLException {
+        return Controller.DB.joinQueueByCategory(params);
+    }
+
+    /**
+     * Retrieves representation of an instance of main.QueueResource
+     * @param params
+     * @return an instance of java.lang.String
+     * @throws java.sql.SQLException
+     */
     @Path("/leave")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
