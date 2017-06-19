@@ -91,8 +91,8 @@ public final class Database {
                 rl.username = result2.getString(2);
                 rl.name = result2.getString(3);
                 return rl;
-            }
-        }
+            } else System.out.println("ERROR: BCrypt error.");
+        } else System.out.println("ERROR: Check error.");
         rl.session = "";
         rl.username = "";
         rl.name = "";
@@ -299,6 +299,9 @@ public final class Database {
                 }
             }
         }
+        for (ResponseBranch rb : list1) {
+            System.out.println(rb.toString());
+        }
         
         statement = connection.prepareCall("CALL GetCounters(?,?);");
         statement.setInt(1, list1.get(0).id);
@@ -319,7 +322,70 @@ public final class Database {
     }
     
     public final ResponseStatus joinQueueByCategory(final ParamsFindBranches params) throws SQLException {
-        return null;
+        statement = connection.prepareCall("CALL FindBranchesFromCategory(?,?,?,?);");
+        statement.setString(1, strip(params.brandcategory , 30));
+        statement.setFloat(2, params.latitude);
+        statement.setFloat(3, params.longitude);
+        statement.setString(4, strip(params.session , 64));
+        ResultSet result1 = statement.executeQuery();
+        ArrayList<ResponseBranch> list1 = new ArrayList<>();
+        while (result1.next()) {
+            ResponseBranch rb = new ResponseBranch();
+            rb.id = result1.getInt(1);
+            rb.branch = result1.getString(2);
+            rb.length = result1.getInt(3);
+            rb.distance = result1.getDouble(4);
+            list1.add(rb);
+        }
+        result1.close();
+        statement.close();
+        if (list1.size() < 1) {
+            ResponseStatus rs = new ResponseStatus();
+            rs.status = 1;
+            rs.status_id = 0;
+            rs.status_msg = "No result.";
+            return rs;
+        }
+        //use rough estimation for demo puposes
+        //use an 120 seconds for each person in counter
+        //use 2kph as slow movement speed
+        double counter = 120d, speed = 0.56d;
+        //sort using generic sorting algorithm
+        for (int i = 0; i < list1.size(); i++) {
+            for (int j = 0; j < list1.size() - 1; j++) {
+                double difficulty1 = counter * list1.get(j).length + speed * list1.get(j).distance;
+                double difficulty2 = counter * list1.get(j + 1).length + speed * list1.get(j + 1).distance;
+                if (difficulty2 < difficulty1) {
+                    ResponseBranch rb = new ResponseBranch();
+                    rb.id = list1.get(j).id;
+                    rb.branch = list1.get(j).branch;
+                    rb.length = list1.get(j).length;
+                    rb.distance = list1.get(j).distance;
+                    list1.set(j, list1.get(j + 1));
+                    list1.set(j + 1, rb);
+                }
+            }
+        }
+        for (ResponseBranch rb : list1) {
+            System.out.println(rb.toString());
+        }
+        
+        statement = connection.prepareCall("CALL GetCounters(?,?);");
+        statement.setInt(1, list1.get(0).id);
+        statement.setString(2, strip(params.session , 64));
+        ResultSet result2 = statement.executeQuery();
+        ResponseCounter rc = new ResponseCounter();
+        if (result2.next()) {
+            rc.id = result2.getInt(1);
+            rc.counter = result2.getString(2);
+            rc.length = result2.getInt(3);
+        }
+        result2.close();
+        statement.close();
+        statement = connection.prepareCall("CALL JoinQueue(?,?);");
+        statement.setInt(1, rc.id);
+        statement.setString(2, strip(params.session , 64));
+        return getStatus(statement.executeQuery());
     }
     
     public final ResponseStatus leaveQueue(final ParamsCounterSession params) throws SQLException {
