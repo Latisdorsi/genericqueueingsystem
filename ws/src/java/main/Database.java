@@ -28,7 +28,7 @@ public final class Database {
     public final ResponseStatus createCustomer(final ParamsCreateCustomer params) throws SQLException {
         statement = connection.prepareCall("CALL CreateCustomer(?,?,?,?);");
         statement.setString(1, strip(params.username, 60));
-        statement.setString(2, strip(params.password, 60));
+        statement.setString(2, BCrypt.hashpw(strip(params.password, 60), BCrypt.gensalt(12)));
         statement.setString(3, strip(params.name, 128));
         statement.setString(4, strip(params.type, 7));
         return getStatus(statement.executeQuery());
@@ -37,7 +37,7 @@ public final class Database {
     public final ResponseStatus createManager(final ParamsAccountInfo params) throws SQLException {
         statement = connection.prepareCall("CALL CreateManager(?,?,?,?);");
         statement.setString(1, strip(params.username, 60));
-        statement.setString(2, strip(params.password, 60));
+        statement.setString(2, BCrypt.hashpw(strip(params.password, 60), BCrypt.gensalt(12)));
         statement.setString(3, strip(params.name, 128));
         statement.setString(4, strip(params.session, 64));
         return getStatus(statement.executeQuery());
@@ -46,7 +46,7 @@ public final class Database {
     public final ResponseStatus editCustomer(final ParamsAccountInfo params) throws SQLException {
         statement = connection.prepareCall("CALL EditCustomer(?,?,?,?);");
         statement.setString(1, strip(params.username, 60));
-        statement.setString(2, strip(params.password, 60));
+        statement.setString(2, BCrypt.hashpw(strip(params.password, 60), BCrypt.gensalt(12)));
         statement.setString(3, strip(params.name, 128));
         statement.setString(4, strip(params.session, 64));
         return getStatus(statement.executeQuery());
@@ -55,7 +55,7 @@ public final class Database {
     public final ResponseStatus editManager(final ParamsAccountInfo params) throws SQLException {
         statement = connection.prepareCall("CALL EditManager(?,?,?,?);");
         statement.setString(1, strip(params.username, 60));
-        statement.setString(2, strip(params.password, 60));
+        statement.setString(2, BCrypt.hashpw(strip(params.password, 60), BCrypt.gensalt(12)));
         statement.setString(3, strip(params.name, 128));
         statement.setString(4, strip(params.session, 64));
         return getStatus(statement.executeQuery());
@@ -142,6 +142,36 @@ public final class Database {
         statement.setString(2, strip(params.session, 64));
         return getStatus(statement.executeQuery());
     }
+    
+    public final ResponseID getBranch(final ParamsSession params) throws SQLException {
+        statement = connection.prepareCall("CALL GetBranch(?);");
+        statement.setString(1, strip(params.session, 64));
+        ResultSet result = statement.executeQuery();
+        result.next();
+        ResponseID rid = new ResponseID();
+        rid.id = result.getInt(1);
+        return rid;
+    }
+    
+    public final ResponseSearchBrandList searchBrand(final ParamsBrandSession params) throws SQLException {
+        statement = connection.prepareCall("CALL SearchBrand(?,?);");
+        statement.setString(1, strip(params.brand, 30));
+        statement.setString(2, strip(params.session, 64));
+        ResultSet result = statement.executeQuery();
+        ResponseSearchBrandList rsbl = new ResponseSearchBrandList();
+        ArrayList<ResponseSearchBrand> list = new ArrayList<>();
+        while (result.next()) {
+            ResponseSearchBrand rsb = new ResponseSearchBrand();
+            rsb.id = result.getInt(1);
+            rsb.counter = result.getString(2);
+            rsb.brand = result.getString(3);
+            rsb.branch = result.getString(4);
+            rsb.category = result.getString(5);
+            list.add(rsb);
+        }
+        rsbl.list = list;
+        return rsbl;
+    }
     //end
     
     
@@ -196,6 +226,20 @@ public final class Database {
         list.nowServingList = al;
         return list;
     }
+    
+    public final ResponseCurrentQueue getCurrentQueue(final ParamsSession params) throws SQLException {
+        statement = connection.prepareCall("CALL GetCurrentQueue(?);");
+        statement.setString(1, strip(params.session, 64));
+        ResultSet result = statement.executeQuery();
+        ResponseCurrentQueue rcq = new ResponseCurrentQueue();
+        if (result.next()) {
+            rcq.branch = result.getString(1);
+            rcq.number = result.getInt(2);
+            rcq.serving = result.getInt(3);
+            rcq.linesahead = result.getInt(4);
+        }
+        return rcq;
+    }
     //end
     
     
@@ -208,6 +252,74 @@ public final class Database {
         statement.setInt(1, params.counter);
         statement.setString(2, strip(params.session, 64));
         return getStatus(statement.executeQuery());
+    }
+    
+    public final ResponseStatus joinQueueByBrand(final ParamsFindBranches params) throws SQLException {
+        statement = connection.prepareCall("CALL FindBranchesFromBrand(?,?,?,?);");
+        statement.setString(1, strip(params.brandcategory , 30));
+        statement.setFloat(2, params.latitude);
+        statement.setFloat(3, params.longitude);
+        statement.setString(4, strip(params.session , 64));
+        ResultSet result1 = statement.executeQuery();
+        ArrayList<ResponseBranch> list1 = new ArrayList<>();
+        while (result1.next()) {
+            ResponseBranch rb = new ResponseBranch();
+            rb.id = result1.getInt(1);
+            rb.branch = result1.getString(2);
+            rb.length = result1.getInt(3);
+            rb.distance = result1.getDouble(4);
+            list1.add(rb);
+        }
+        result1.close();
+        statement.close();
+        if (list1.size() < 1) {
+            ResponseStatus rs = new ResponseStatus();
+            rs.status = 1;
+            rs.status_id = 0;
+            rs.status_msg = "No result.";
+            return rs;
+        }
+        //use rough estimation for demo puposes
+        //use an 120 seconds for each person in counter
+        //use 2kph as slow movement speed
+        double counter = 120d, speed = 0.56d;
+        //sort using generic sorting algorithm
+        for (int i = 0; i < list1.size(); i++) {
+            for (int j = 0; j < list1.size() - 1; j++) {
+                double difficulty1 = counter * list1.get(j).length + speed * list1.get(j).distance;
+                double difficulty2 = counter * list1.get(j + 1).length + speed * list1.get(j + 1).distance;
+                if (difficulty2 < difficulty1) {
+                    ResponseBranch rb = new ResponseBranch();
+                    rb.id = list1.get(j).id;
+                    rb.branch = list1.get(j).branch;
+                    rb.length = list1.get(j).length;
+                    rb.distance = list1.get(j).distance;
+                    list1.set(j, list1.get(j + 1));
+                    list1.set(j + 1, rb);
+                }
+            }
+        }
+        
+        statement = connection.prepareCall("CALL GetCounters(?,?);");
+        statement.setInt(1, list1.get(0).id);
+        statement.setString(2, strip(params.session , 64));
+        ResultSet result2 = statement.executeQuery();
+        ResponseCounter rc = new ResponseCounter();
+        if (result2.next()) {
+            rc.id = result2.getInt(1);
+            rc.counter = result2.getString(2);
+            rc.length = result2.getInt(3);
+        }
+        result2.close();
+        statement.close();
+        statement = connection.prepareCall("CALL JoinQueue(?,?);");
+        statement.setInt(1, rc.id);
+        statement.setString(2, strip(params.session , 64));
+        return getStatus(statement.executeQuery());
+    }
+    
+    public final ResponseStatus joinQueueByCategory(final ParamsFindBranches params) throws SQLException {
+        return null;
     }
     
     public final ResponseStatus leaveQueue(final ParamsCounterSession params) throws SQLException {
