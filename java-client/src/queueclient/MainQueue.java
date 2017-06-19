@@ -30,6 +30,9 @@ public class MainQueue extends javax.swing.JFrame {
      */
     public MainQueue() {
         initComponents();
+        
+       
+        
     }
 
     /**
@@ -41,6 +44,7 @@ public class MainQueue extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         logoLabel = new javax.swing.JLabel();
         jToggleButton1 = new javax.swing.JToggleButton();
@@ -59,15 +63,16 @@ public class MainQueue extends javax.swing.JFrame {
         jToggleButton2 = new javax.swing.JToggleButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        brandRad = new javax.swing.JRadioButton();
+        catRad = new javax.swing.JRadioButton();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        latTxt = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jToggleButton3 = new javax.swing.JToggleButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        lonTxt = new javax.swing.JTextField();
+        queueBtn = new javax.swing.JToggleButton();
+        brandCombo = new javax.swing.JComboBox<>();
+        catCombo = new javax.swing.JComboBox<>();
         jPanel4 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -204,16 +209,23 @@ public class MainQueue extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel9.setText("Queue Type:");
 
-        jRadioButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRadioButton1.setText("By Brand");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(brandRad);
+        brandRad.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        brandRad.setText("By Brand");
+        brandRad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                brandRadActionPerformed(evt);
             }
         });
 
-        jRadioButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRadioButton2.setText("By Category");
+        buttonGroup1.add(catRad);
+        catRad.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        catRad.setText("By Category");
+        catRad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                catRadActionPerformed(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setText("Brand Category:");
@@ -221,17 +233,27 @@ public class MainQueue extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel11.setText("Latitude:");
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel12.setText("Longitude:");
-
-        jToggleButton3.setText("Queue");
-        jToggleButton3.addActionListener(new java.awt.event.ActionListener() {
+        latTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton3ActionPerformed(evt);
+                latTxtActionPerformed(evt);
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel12.setText("Longitude:");
+
+        queueBtn.setText("Queue");
+        queueBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                queueBtnActionPerformed(evt);
+            }
+        });
+
+        brandCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bank of the Philippine Islands", "Kentucky Fried Chicken", "7-eleven" }));
+        brandCombo.setEnabled(false);
+
+        catCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bank", "Fast Food", "Convenience Store" }));
+        catCombo.setEnabled(false);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -243,9 +265,9 @@ public class MainQueue extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addGap(18, 18, 18)
-                        .addComponent(jRadioButton1)
+                        .addComponent(brandRad)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRadioButton2))
+                        .addComponent(catRad))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel10)
@@ -253,15 +275,17 @@ public class MainQueue extends javax.swing.JFrame {
                             .addComponent(jLabel12))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
-                            .addComponent(jTextField2)
+                            .addComponent(lonTxt)
+                            .addComponent(latTxt)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(220, 220, 220))))
+                                .addComponent(brandCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addComponent(catCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(8, 8, 8))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(226, 226, 226)
-                        .addComponent(jToggleButton3)))
-                .addContainerGap(67, Short.MAX_VALUE))
+                        .addComponent(queueBtn)))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -269,22 +293,23 @@ public class MainQueue extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
+                    .addComponent(brandRad)
+                    .addComponent(catRad))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(brandCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(catCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(latTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lonTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jToggleButton3)
+                .addComponent(queueBtn)
                 .addContainerGap(87, Short.MAX_VALUE))
         );
 
@@ -437,9 +462,12 @@ public class MainQueue extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+    private void brandRadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brandRadActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+        brandCombo.setEnabled(true);
+        catCombo.setEnabled(false);
+        
+    }//GEN-LAST:event_brandRadActionPerformed
 
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
         // TODO add your handling code here:
@@ -522,9 +550,102 @@ public class MainQueue extends javax.swing.JFrame {
         
     }//GEN-LAST:event_submitBtnActionPerformed
 
-    private void jToggleButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton3ActionPerformed
+    private void queueBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_queueBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton3ActionPerformed
+        if(brandRad.isSelected()){
+        
+            try {
+
+                // create HTTP Client
+                HttpClient httpClient = HttpClientBuilder.create().build();
+
+                // Create new postRequest with below mentioned URL
+                HttpPost postRequest = new HttpPost("http://localhost:8080/ws/queue/join/brand");
+                StringEntity input = new StringEntity("{\"brandcategory\":\"" + brandCombo.getSelectedItem().toString() + "\","
+                        + "\"latitude\":" + latTxt.getText() + ","
+                        + "\"longitude\":" + lonTxt.getText() + ","
+                        + "\"session\":\"" + Session.getSesh() + "\"}");
+                // Add additional header to getRequest which accepts application/JSON data
+                input.setContentType("application/json");
+                postRequest.setEntity(input);
+                // Execute your request and catch response
+                HttpResponse response = httpClient.execute(postRequest);
+
+                // Check for HTTP response code: 200 = success
+                if (response.getStatusLine().getStatusCode() != 200) {
+                    throw new RuntimeException("Failed : HTTP error code : "
+                            + response.getStatusLine().getStatusCode());
+
+                }
+
+                // Get-Capture Complete application/JSON body response
+                BufferedReader br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));
+                String output;
+                System.out.println("============Output:============");
+         
+                
+
+                // Simply iterate through JSON response and show on console.
+                while ((output = br.readLine()) != null) {
+                    System.out.println(output);
+                    JSONObject obj = new JSONObject(output);
+                    
+                    //Notification of Successful/Failed post
+                   if(obj.getString("status").equalsIgnoreCase("1"))
+                   {
+                       if(obj.getString("status_id").equalsIgnoreCase("1001"))
+                       {
+                       JOptionPane.showMessageDialog(rootPane, "Insufficient Privileges");
+                       }
+                    JOptionPane.showMessageDialog(rootPane, obj.getString("status_msg"));
+                   }
+                   else{
+                   JOptionPane.showMessageDialog(rootPane, "Queue Success!");
+                   }
+                }
+                
+               
+
+            } catch (ClientProtocolException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(rootPane, "Error! Check your input.");
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(rootPane, "Error! Check your input.");
+
+            } catch (JSONException ex) {
+                Logger.getLogger(MainQueue.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            //Clear Forms
+            brandRad.setSelected(false);
+            catRad.setSelected(false);
+            latTxt.setText("");
+            lonTxt.setText("");
+        
+      
+        
+        }
+        else{
+        
+        
+        }
+        
+        
+    }//GEN-LAST:event_queueBtnActionPerformed
+
+    private void catRadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_catRadActionPerformed
+        // TODO add your handling code here:
+        
+        brandCombo.setEnabled(false);
+        catCombo.setEnabled(true);
+        
+    }//GEN-LAST:event_catRadActionPerformed
+
+    private void latTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_latTxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_latTxtActionPerformed
 
     /**
      * @param args the command line arguments
@@ -559,10 +680,18 @@ public class MainQueue extends javax.swing.JFrame {
                 new MainQueue().setVisible(true);
             }
         });
+        
+        
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> brandCombo;
+    private javax.swing.JRadioButton brandRad;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JComboBox<String> catCombo;
+    private javax.swing.JRadioButton catRad;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -584,19 +713,17 @@ public class MainQueue extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;
-    private javax.swing.JToggleButton jToggleButton3;
+    private javax.swing.JTextField latTxt;
     private javax.swing.JLabel logoLabel;
+    private javax.swing.JTextField lonTxt;
     private javax.swing.JTextField nameTxt;
     private javax.swing.JPasswordField passTxt;
     private javax.swing.JPasswordField passTxt1;
+    private javax.swing.JToggleButton queueBtn;
     private javax.swing.JToggleButton submitBtn;
     private javax.swing.JTextField userTxt;
     // End of variables declaration//GEN-END:variables
