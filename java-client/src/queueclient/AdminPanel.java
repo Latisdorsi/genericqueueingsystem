@@ -3,6 +3,8 @@ package queueclient;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -10,6 +12,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -436,21 +440,21 @@ public class AdminPanel extends javax.swing.JFrame {
                 // Simply iterate through JSON response and show on console.
                 while ((output = br.readLine()) != null) {
                     System.out.println(output);
+                    JSONObject obj = new JSONObject(output);
                     
                    //Notification of Successful/Failed post
-                   if(output.substring(10,11).equalsIgnoreCase("1"))
+                   if(obj.getString("status").equalsIgnoreCase("1"))
                    {
-                       if(output.substring(24, 28).equalsIgnoreCase("1001"))
+                       if(obj.getString("status_id").equalsIgnoreCase("1001"))
                        {
                        JOptionPane.showMessageDialog(rootPane, "Insufficient Privileges");
                        }
-                    JOptionPane.showMessageDialog(rootPane, output.substring(43, 90));
+                    JOptionPane.showMessageDialog(rootPane, obj.getString("status_msg"));
                    }
                    else{
-                   JOptionPane.showMessageDialog(rootPane, "Account Creation Success!");
+                   JOptionPane.showMessageDialog(rootPane, "Account Modification Success!");
                    }
-               }
-                
+                }
 
             } catch (ClientProtocolException e) {
                 e.printStackTrace();
@@ -460,6 +464,8 @@ public class AdminPanel extends javax.swing.JFrame {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(rootPane, "Error! Check your input.");
 
+            } catch (JSONException ex) {
+                Logger.getLogger(AdminPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
             //Clear Forms
             userTxt.setText("");
@@ -509,15 +515,16 @@ public class AdminPanel extends javax.swing.JFrame {
                 // Simply iterate through JSON response and show on console.
                 while ((output = br.readLine()) != null) {
                     System.out.println(output);
+                    JSONObject obj = new JSONObject(output);
                     
-                    //Notification of Successful/Failed post
-                   if(output.substring(10,11).equalsIgnoreCase("1"))
+                   //Notification of Successful/Failed post
+                   if(obj.getString("status").equalsIgnoreCase("1"))
                    {
-                       if(output.substring(24, 28).equalsIgnoreCase("1001"))
+                       if(obj.getString("status_id").equalsIgnoreCase("1001"))
                        {
                        JOptionPane.showMessageDialog(rootPane, "Insufficient Privileges");
                        }
-                    JOptionPane.showMessageDialog(rootPane, output.substring(43, 96));
+                    JOptionPane.showMessageDialog(rootPane, obj.getString("status_msg"));
                    }
                    else{
                    JOptionPane.showMessageDialog(rootPane, "Account Modification Success!");
@@ -534,6 +541,8 @@ public class AdminPanel extends javax.swing.JFrame {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(rootPane, "Error! Check your input.");
 
+            } catch (JSONException ex) {
+                Logger.getLogger(AdminPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
             
             //Clear Forms
@@ -580,21 +589,21 @@ public class AdminPanel extends javax.swing.JFrame {
                 // Simply iterate through JSON response and show on console.
                 while ((output = br.readLine()) != null) {
                     System.out.println(output);
+                    JSONObject obj = new JSONObject(output);
                     
-                    //Notification of Successful/Failed post
-                   if(output.substring(10,11).equalsIgnoreCase("1"))
+                   //Notification of Successful/Failed post
+                   if(obj.getString("status").equalsIgnoreCase("1"))
                    {
-                       if(output.substring(24, 28).equalsIgnoreCase("1001"))
+                       if(obj.getString("status_id").equalsIgnoreCase("1001"))
                        {
                        JOptionPane.showMessageDialog(rootPane, "Insufficient Privileges");
                        }
-                    JOptionPane.showMessageDialog(rootPane, output.substring(43, 96));
+                    JOptionPane.showMessageDialog(rootPane, obj.getString("status_msg"));
                    }
                    else{
-                   JOptionPane.showMessageDialog(rootPane, "Account Deleted!");
+                   JOptionPane.showMessageDialog(rootPane, "Account Modification Success!");
                    }
                 }
-                
                
 
             } catch (ClientProtocolException e) {
@@ -605,7 +614,9 @@ public class AdminPanel extends javax.swing.JFrame {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(rootPane, "Error! Check your input.");
 
-            }
+            } catch (JSONException ex) {
+                 Logger.getLogger(AdminPanel.class.getName()).log(Level.SEVERE, null, ex);
+             }
             //Clear Forms
             deleteUserTxt.setText("");
          }

@@ -25,6 +25,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
@@ -195,29 +197,33 @@ public class LoginPanel extends javax.swing.JFrame {
                 BufferedReader br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));
                 String output = null;
                 output = br.readLine();
+                JSONObject obj = new JSONObject(output);
                 System.out.println("============Output:============");
                 System.out.println(output);
 
                 //gets the session
-                if (output.substring(12, 13).equalsIgnoreCase("\"")) {
+                if (obj.getString("session").equalsIgnoreCase("")) {
 
                     JOptionPane.showMessageDialog(rootPane, "Login Failed!");
                     LoginPanel l = new LoginPanel();
                     l.setVisible(true);
                     this.dispose(); //closes the login page.
                 } else {
-                    session = output.substring(12, 76);
-                    Session.setSesh(session);
+                    
+                    Session.setSesh(obj.getString("session"));
+                   
                     JOptionPane.showMessageDialog(rootPane, "Login Successful!");
                     //Move to the next Form
                     if (userTxt.getText().equals("admin") || userTxt.getText().equals("admin")) {
                         AdminPanel a = new AdminPanel();
                         a.setVisible(true);
                         this.dispose(); //closes the login page.
-                    } else {
+                    }
+                    //else if()
+                    else {
                         
-                        //logging in to the member's form
-                        ManagerPanel m = new ManagerPanel();
+                       //logging in to the member's queue
+                        MainQueue m = new MainQueue();
                         m.setVisible(true);
                         this.dispose(); //closes the login page.
                     }
@@ -231,6 +237,8 @@ public class LoginPanel extends javax.swing.JFrame {
             } catch (IOException e) {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(rootPane, "Error! User not found.");
+            } catch (JSONException ex) {
+                Logger.getLogger(LoginPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         } else {

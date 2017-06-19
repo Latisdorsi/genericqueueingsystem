@@ -5,6 +5,20 @@
  */
 package queueclient;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.json.*;
+
 /**
  *
  * @author LOW
@@ -59,11 +73,11 @@ public class MainQueue extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jToggleButton4 = new javax.swing.JToggleButton();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
+        submitBtn = new javax.swing.JToggleButton();
+        nameTxt = new javax.swing.JTextField();
+        userTxt = new javax.swing.JTextField();
+        passTxt = new javax.swing.JPasswordField();
+        passTxt1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -211,6 +225,11 @@ public class MainQueue extends javax.swing.JFrame {
         jLabel12.setText("Longitude:");
 
         jToggleButton3.setText("Queue");
+        jToggleButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton3ActionPerformed(evt);
+            }
+        });
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -283,7 +302,12 @@ public class MainQueue extends javax.swing.JFrame {
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel16.setText("Re-enter Password:");
 
-        jToggleButton4.setText("Submit");
+        submitBtn.setText("Submit");
+        submitBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -292,27 +316,20 @@ public class MainQueue extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel16)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel15)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel14)
-                            .addComponent(jLabel13))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
-                            .addComponent(jTextField5))))
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel16)
+                    .addComponent(jLabel15))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(nameTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
+                    .addComponent(userTxt)
+                    .addComponent(passTxt)
+                    .addComponent(passTxt1))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jToggleButton4)
+                .addContainerGap(272, Short.MAX_VALUE)
+                .addComponent(submitBtn)
                 .addGap(214, 214, 214))
         );
         jPanel4Layout.setVerticalGroup(
@@ -321,26 +338,24 @@ public class MainQueue extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel13)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel14))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel13)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel15)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel16))
+                        .addComponent(jLabel14))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(nameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(31, 31, 31)
-                .addComponent(jToggleButton4)
-                .addContainerGap(62, Short.MAX_VALUE))
+                        .addComponent(userTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(passTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel16)
+                    .addComponent(passTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
+                .addComponent(submitBtn)
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Edit Profile", jPanel4);
@@ -369,11 +384,147 @@ public class MainQueue extends javax.swing.JFrame {
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         // TODO add your handling code here:
+          try {
+
+            // create HTTP Client
+            HttpClient httpClient = HttpClientBuilder.create().build();
+
+            // Create new getRequest with below mentioned URL
+            HttpPost postRequest = new HttpPost("http://localhost:8080/ws/account/logout");
+            StringEntity input = new StringEntity("{\"session\":\"" + Session.getSesh() + "\"}");
+            // Add additional header to getRequest which accepts application/JSON data
+            input.setContentType("application/json");
+            postRequest.setEntity(input);
+            // Execute your request and catch response
+            HttpResponse response = httpClient.execute(postRequest);
+
+            // Check for HTTP response code: 200 = success
+            if (response.getStatusLine().getStatusCode() != 200) {
+                throw new RuntimeException("Failed : HTTP error code : "
+                        + response.getStatusLine().getStatusCode());
+
+            }
+
+            // Get-Capture Complete application/JSON body response
+            BufferedReader br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));
+            String output;
+            System.out.println("============Output:============");
+
+            // Simply iterate through JSON response and show on console.
+            while ((output = br.readLine()) != null) {
+                System.out.println(output);
+
+            }
+            //Notification of Successful Log Out
+            JOptionPane.showMessageDialog(rootPane, "Successfully Logged Out!");
+
+            //Move back to the next Form
+            LoginPanel l = new LoginPanel();
+            l.setVisible(true);
+            this.dispose(); //closes the login page.
+
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, "Error! User not found.");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, "Error! User not found.");
+
+        }
+
+
+        
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
+        // TODO add your handling code here:
+        if (!userTxt.getText().isEmpty() && !passTxt.getText().isEmpty() && !nameTxt.getText().isEmpty()
+                && passTxt.getText().equals(passTxt1.getText())) {
+            try {
+
+                // create HTTP Client
+                HttpClient httpClient = HttpClientBuilder.create().build();
+
+                // Create new postRequest with below mentioned URL
+                HttpPost postRequest = new HttpPost("http://localhost:8080/ws/account/edit/customer");
+                StringEntity input = new StringEntity("{\"username\":\"" + userTxt.getText() + "\","
+                        + "\"password\":\"" + passTxt.getText() + "\","
+                        + "\"name\":\"" + nameTxt.getText() + "\","
+                        + "\"session\":\"" + Session.getSesh() + "\"}");
+                // Add additional header to getRequest which accepts application/JSON data
+                input.setContentType("application/json");
+                postRequest.setEntity(input);
+                // Execute your request and catch response
+                HttpResponse response = httpClient.execute(postRequest);
+
+                // Check for HTTP response code: 200 = success
+                if (response.getStatusLine().getStatusCode() != 200) {
+                    throw new RuntimeException("Failed : HTTP error code : "
+                            + response.getStatusLine().getStatusCode());
+
+                }
+
+                // Get-Capture Complete application/JSON body response
+                BufferedReader br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));
+                String output;
+                System.out.println("============Output:============");
+         
+                
+
+                // Simply iterate through JSON response and show on console.
+                while ((output = br.readLine()) != null) {
+                    System.out.println(output);
+                    JSONObject obj = new JSONObject(output);
+                    
+                    //Notification of Successful/Failed post
+                   if(obj.getString("status").equalsIgnoreCase("1"))
+                   {
+                       if(obj.getString("status_id").equalsIgnoreCase("1001"))
+                       {
+                       JOptionPane.showMessageDialog(rootPane, "Insufficient Privileges");
+                       }
+                    JOptionPane.showMessageDialog(rootPane, obj.getString("status_msg"));
+                   }
+                   else{
+                   JOptionPane.showMessageDialog(rootPane, "Account Modification Success!");
+                   }
+                }
+                
+               
+
+            } catch (ClientProtocolException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(rootPane, "Error! Check your input.");
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(rootPane, "Error! Check your input.");
+
+            } catch (JSONException ex) {
+                Logger.getLogger(MainQueue.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            //Clear Forms
+            userTxt.setText("");
+            passTxt.setText("");
+            passTxt1.setText("");
+            nameTxt.setText("");
+        }
+        else{
+        JOptionPane.showMessageDialog(rootPane, "Error! Check your input.");
+        }
+        
+        
+    }//GEN-LAST:event_submitBtnActionPerformed
+
+    private void jToggleButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jToggleButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -439,14 +590,14 @@ public class MainQueue extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JToggleButton jToggleButton3;
-    private javax.swing.JToggleButton jToggleButton4;
     private javax.swing.JLabel logoLabel;
+    private javax.swing.JTextField nameTxt;
+    private javax.swing.JPasswordField passTxt;
+    private javax.swing.JPasswordField passTxt1;
+    private javax.swing.JToggleButton submitBtn;
+    private javax.swing.JTextField userTxt;
     // End of variables declaration//GEN-END:variables
 }

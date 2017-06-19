@@ -16,7 +16,11 @@ public final class Session {
     private static int counter;
     private static String name;
     private static String branch;
-    
+    private static String lat;
+    private static String lon;
+    private static String ctr;
+    private static String brandcat;
+
     static{
     sesh = null;
     counter = 0;
@@ -24,6 +28,38 @@ public final class Session {
     branch = null;
     }
 
+    
+    public static String getLat() {
+        return lat;
+    }
+
+    public static void setLat(String lat) {
+        Session.lat = lat;
+    }
+
+    public static String getLon() {
+        return lon;
+    }
+
+    public static void setLon(String lon) {
+        Session.lon = lon;
+    }
+
+    public static String getCtr() {
+        return ctr;
+    }
+
+    public static void setCtr(String ctr) {
+        Session.ctr = ctr;
+    }
+
+    public static String getBrandcat() {
+        return brandcat;
+    }
+
+    public static void setBrandcat(String brandcat) {
+        Session.brandcat = brandcat;
+    }
     
     public static String getBranch() {
         return branch;
