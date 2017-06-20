@@ -51,16 +51,16 @@ public class MainQueue extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        branchLbl = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        userQueLbl = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        nowServLbl = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        totalQueLbl = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
-        jToggleButton2 = new javax.swing.JToggleButton();
+        leaveBtn = new javax.swing.JToggleButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         brandRad = new javax.swing.JRadioButton();
@@ -125,22 +125,22 @@ public class MainQueue extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Branch:");
 
-        jLabel2.setText("Branch");
+        branchLbl.setText("Branch");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("Your Number:");
 
-        jLabel4.setText("Number");
+        userQueLbl.setText("Number");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("Currently Serving:");
 
-        jLabel6.setText("Current");
+        nowServLbl.setText("Current");
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel7.setText("Lines Ahead:");
 
-        jLabel8.setText("13");
+        totalQueLbl.setText("13");
 
         jList1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -149,7 +149,12 @@ public class MainQueue extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jList1);
 
-        jToggleButton2.setText("Leave Queue");
+        leaveBtn.setText("Leave Queue");
+        leaveBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                leaveBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -164,24 +169,24 @@ public class MainQueue extends javax.swing.JFrame {
                         .addGap(20, 20, 20)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
+                        .addComponent(branchLbl)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4)
+                        .addComponent(userQueLbl)
                         .addGap(14, 14, 14)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6)
+                        .addComponent(nowServLbl)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel8)
+                        .addComponent(totalQueLbl)
                         .addGap(0, 32, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jToggleButton2)
+                .addComponent(leaveBtn)
                 .addGap(197, 197, 197))
         );
         jPanel2Layout.setVerticalGroup(
@@ -190,17 +195,17 @@ public class MainQueue extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel2)
+                    .addComponent(branchLbl)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel4)
+                    .addComponent(userQueLbl)
                     .addComponent(jLabel5)
-                    .addComponent(jLabel6)
+                    .addComponent(nowServLbl)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel8))
+                    .addComponent(totalQueLbl))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jToggleButton2)
+                .addComponent(leaveBtn)
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
@@ -647,6 +652,75 @@ public class MainQueue extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_latTxtActionPerformed
 
+    private void leaveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leaveBtnActionPerformed
+        // TODO add your handling code here:
+        
+        try {
+
+                // create HTTP Client
+                HttpClient httpClient = HttpClientBuilder.create().build();
+
+                // Create new postRequest with below mentioned URL
+                HttpPost postRequest = new HttpPost("http://localhost:8080/ws/queue/leave");
+                StringEntity input = new StringEntity("{\"brandcategory\":\"" + brandCombo.getSelectedItem().toString() + "\","
+                        + "\"latitude\":" + latTxt.getText() + ","
+                        + "\"longitude\":" + lonTxt.getText() + ","
+                        + "\"session\":\"" + Session.getSesh() + "\"}");
+                // Add additional header to getRequest which accepts application/JSON data
+                input.setContentType("application/json");
+                postRequest.setEntity(input);
+                // Execute your request and catch response
+                HttpResponse response = httpClient.execute(postRequest);
+
+                // Check for HTTP response code: 200 = success
+                if (response.getStatusLine().getStatusCode() != 200) {
+                    throw new RuntimeException("Failed : HTTP error code : "
+                            + response.getStatusLine().getStatusCode());
+
+                }
+
+                // Get-Capture Complete application/JSON body response
+                BufferedReader br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));
+                String output;
+                System.out.println("============Output:============");
+         
+                
+
+                // Simply iterate through JSON response and show on console.
+                while ((output = br.readLine()) != null) {
+                    System.out.println(output);
+                    JSONObject obj = new JSONObject(output);
+                    
+                    //Notification of Successful/Failed post
+                   if(obj.getString("status").equalsIgnoreCase("1"))
+                   {
+                       if(obj.getString("status_id").equalsIgnoreCase("1001"))
+                       {
+                       JOptionPane.showMessageDialog(rootPane, "Insufficient Privileges");
+                       }
+                    JOptionPane.showMessageDialog(rootPane, obj.getString("status_msg"));
+                   }
+                   else{
+                   JOptionPane.showMessageDialog(rootPane, "Queue Success!");
+                   }
+                }
+                
+               
+
+            } catch (ClientProtocolException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(rootPane, "Error! Check your input.");
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(rootPane, "Error! Check your input.");
+
+            } catch (JSONException ex) {
+                Logger.getLogger(MainQueue.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+    }//GEN-LAST:event_leaveBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -687,6 +761,7 @@ public class MainQueue extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel branchLbl;
     private javax.swing.JComboBox<String> brandCombo;
     private javax.swing.JRadioButton brandRad;
     private javax.swing.ButtonGroup buttonGroup1;
@@ -700,13 +775,9 @@ public class MainQueue extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JList jList1;
     private javax.swing.JPanel jPanel1;
@@ -716,15 +787,18 @@ public class MainQueue extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JToggleButton jToggleButton1;
-    private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JTextField latTxt;
+    private javax.swing.JToggleButton leaveBtn;
     private javax.swing.JLabel logoLabel;
     private javax.swing.JTextField lonTxt;
     private javax.swing.JTextField nameTxt;
+    private javax.swing.JLabel nowServLbl;
     private javax.swing.JPasswordField passTxt;
     private javax.swing.JPasswordField passTxt1;
     private javax.swing.JToggleButton queueBtn;
     private javax.swing.JToggleButton submitBtn;
+    private javax.swing.JLabel totalQueLbl;
+    private javax.swing.JLabel userQueLbl;
     private javax.swing.JTextField userTxt;
     // End of variables declaration//GEN-END:variables
 }
