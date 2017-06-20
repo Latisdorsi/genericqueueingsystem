@@ -51,7 +51,7 @@ public class QueueResource {
      * @return an instance of java.lang.String
      * @throws java.sql.SQLException
      */
-    @Path("/join/branch")
+    @Path("/join/brand")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
